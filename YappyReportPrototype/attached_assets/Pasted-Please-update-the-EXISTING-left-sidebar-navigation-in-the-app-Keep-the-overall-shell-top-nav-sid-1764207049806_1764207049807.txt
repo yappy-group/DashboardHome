@@ -1,0 +1,112 @@
+Please update the EXISTING left sidebar navigation in the app. 
+Keep the overall shell (top nav, sidebar, main content) from the last iteration, 
+but modify the sidebar as follows.
+
+------------------------------------------------------------
+1) NAV STRUCTURE CHANGES
+------------------------------------------------------------
+Current top-level items:
+- Home
+- Campaigns
+- Reporting
+
+Update it to this structure (order matters):
+
+TOP-LEVEL ITEMS
+1. Home
+2. Campaigns
+3. Reporting
+4. Creative
+
+SUB-MENUS
+• Campaigns
+   - Create New Campaign
+   - Edit Campaign
+
+• Reporting
+   - Always On Campaigns
+   - Tactical Campaigns
+
+• Creative
+   - Content Library
+   - Add Content
+
+Home has no sub-menu.
+
+For now, keep the same routing/conditional rendering behaviour, but:
+- “Always On Program” → rename to **Always On Campaigns**
+- “Tactical Program” → rename to **Tactical Campaigns**
+- Add placeholder views for **Content Library** and **Add Content** (simple headings).
+
+------------------------------------------------------------
+2) ADD ICONS TO NAV ITEMS
+------------------------------------------------------------
+Add a small icon to the left of each TOP-LEVEL item (not sub-items). 
+Use any simple icon set you’re already using (e.g. Heroicons, Lucide) or 
+fallback to emoji/text placeholders if no icon library is installed.
+
+Suggested icons (or closest match available):
+- Home: house icon
+- Campaigns: target / bullseye / flag icon
+- Reporting: bar-chart / graph icon
+- Creative: image / sparkles / file-plus icon
+
+Icons and labels should be aligned horizontally, with consistent spacing.
+
+Do NOT add icons for sub-menu items; they should remain text-only and indented.
+
+------------------------------------------------------------
+3) VISUAL HIERARCHY & GRADIENT DIFFERENTIATION
+------------------------------------------------------------
+I want a subtle colour / gradient distinction between nav tiers:
+
+TOP-LEVEL ITEMS
+• Background: a very light vertical gradient using Yappy-ish tones 
+  (e.g. from #FFFFFF at the top to #F9F4EF toward the bottom).
+• On hover / active:
+   - Slightly stronger background (e.g. #FFF3E5).
+   - A 3–4px left border in Yappy orange (#F77C22).
+   - Bold text for the active item.
+
+SUB-MENU ITEMS
+• Background: keep mostly neutral (white or very light grey).
+• Text: slightly smaller and lighter weight than top-level items.
+• Indentation: indent sub-menu items under their parent (e.g. 12–16px).
+• On hover:
+   - Light grey background (#F3F3F3).
+   - No orange border (border reserved for active top-level only).
+
+Overall:
+- The gradient should be subtle enough not to distract, but visible enough to suggest 
+  that top-level items live on a slightly “elevated” layer compared to their sub-items.
+
+------------------------------------------------------------
+4) LAYOUT / RESPONSIVENESS
+------------------------------------------------------------
+• Keep the sidebar width similar to before (~220–260px).
+• Ensure icons and labels don’t wrap awkwardly at smaller widths.
+• Preserve existing highlight state for the currently selected route, but update it to 
+  use the new styles (orange border + bolder text for active top-level).
+
+------------------------------------------------------------
+5) CLEANUP & CONSISTENCY
+------------------------------------------------------------
+• Make sure all renamed items (Always On Campaigns, Tactical Campaigns) are updated in:
+   - The sidebar labels
+   - Any routing paths
+   - Placeholder view titles
+
+• Ensure new Creative sub-items (“Content Library”, “Add Content”) are wired up to simple 
+  placeholder components so clicking them updates the main content area.
+
+------------------------------------------------------------
+6) DELIVERABLE
+------------------------------------------------------------
+Please show me:
+- The updated SidebarNav component (JSX/TSX)
+- Any new icons/imports used
+- The relevant CSS/Tailwind/styled-component changes that implement:
+    - Icons
+    - Gradient differentiation
+    - Active / hover styling
+    - Sub-item indentation

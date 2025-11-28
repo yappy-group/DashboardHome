@@ -1,0 +1,58 @@
+Please update the existing Replit prototype for the campaign flip-cards with the following changes. 
+Do NOT redesign the whole card—only adjust the fields and labels as described.
+
+------------------------------------------------------------
+1) BRAND AWARENESS CARD — FRONT
+------------------------------------------------------------
+• Remove “CPM” completely.
+• Replace it with: 
+      ACTIVE TARGET ACCOUNTS
+      <number>      // e.g. 8
+• Use the same visual style (typography, placement, padding) as the old CPM field.
+
+------------------------------------------------------------
+2) BRAND AWARENESS CARD — BACK
+------------------------------------------------------------
+• Change the title on the back of the Brand Awareness flipcard to:
+      TOP 3 TARGETS
+• Under each target, add a simple trend indicator:
+      ↑ +X%   or   ↓ –X%
+• Use green for positive, red for negative trends.
+• Keep the list formatting consistent with the current “Top Content” styling.
+
+------------------------------------------------------------
+3) TACTICAL CARD — FRONT
+------------------------------------------------------------
+• Replace the “Engagement” rating with:
+      ROLES REACHED
+      <number>      // e.g. 87
+• Use a simple integer count (no bar, no rating words like Low/Med/High).
+• Keep placement, typographic scale, and spacing identical to the current Engagement field.
+
+------------------------------------------------------------
+4) TACTICAL CARD — BACK
+------------------------------------------------------------
+• Change the header:
+      OLD: Key Roles Engaged
+      NEW: Top 3 Content
+• Remove the entire Key Roles Engaged section (title + list + bars).
+• The back of the Tactical card should now only show:
+   - Title: "Top 3 Content"
+   - The list of the top 3 content items with their small engagement bars (as you already have in BA cards).
+
+------------------------------------------------------------
+5) REMOVE ROLE ENGAGEMENT BACK CONTENT
+------------------------------------------------------------
+• Delete all rendering logic for the Key Roles Engaged block (including role names, bars, logic, and props).
+• Ensure the data model no longer requires keyRolesEngaged.
+• Clean up props so Tactical cards accept only:
+      topContent: [...]
+      rolesReachedCount: number   // for the FRONT only
+
+------------------------------------------------------------
+DELIVERABLE
+------------------------------------------------------------
+• Update the JSX/HTML and CSS for both Brand Awareness and Tactical flipcards.
+• Remove unused props, hooks, or variables.
+• Keep all existing visual alignment, spacing, card radius, shadows, and component structure intact.
+• Return the updated component code after applying these modifications.

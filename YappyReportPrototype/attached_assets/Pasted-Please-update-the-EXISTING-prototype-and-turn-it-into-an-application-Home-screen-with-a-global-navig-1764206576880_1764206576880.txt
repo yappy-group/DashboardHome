@@ -1,0 +1,97 @@
+Please update the EXISTING prototype and turn it into an application Home screen with a global navigation shell. Do NOT redesign individual cards, just wrap them in a proper layout and adjust headings as described.
+
+-----------------------------
+1) TURN CURRENT PAGE INTO "HOME"
+-----------------------------
+• Treat the current layout (hero metrics + campaign flipcards) as the new **Home** screen.
+• Remove the large “Executive Summary” heading and the “Executive Insights” panel entirely.
+• Keep:
+    - the 4 hero metric cards at the top
+    - the grid of flipcards below (Brand Awareness + Tactical cards).
+
+-----------------------------
+2) ADD TOP NAV BAR (GLOBAL)
+-----------------------------
+Add a fixed top navigation bar that appears on all pages.
+
+Layout (left → right):
+
+• Left:
+    - Yappy logo (simple text placeholder "Yappy" for now, clickable → navigates to Home)
+
+• Center:
+    - Global search input with placeholder text: “Search accounts, campaigns, content, reports…”
+    - The search doesn’t need to be functional; just the UI element for now.
+
+• Right:
+    - Notifications icon (e.g. bell)
+    - User avatar circle with initials (e.g. “TS”) that could open a profile menu later
+
+Styling:
+• Height around 56–64px
+• Background: white
+• Subtle bottom border or shadow
+• Content aligned using flexbox
+
+-----------------------------
+3) ADD LEFT SIDEBAR NAVIGATION
+-----------------------------
+Add a vertical sidebar on the left, below the top nav, that is visible on all pages.
+
+Top-level items (in this order):
+
+1. Home
+2. Campaigns
+   - Create New Campaign
+   - Edit Campaign
+3. Reporting
+   - Always On Program
+   - Tactical Program
+
+Behavior:
+• Clicking **Home** shows the existing hero metrics + flipcards view (the current prototype).
+• For now, clicking the other items can:
+    - either navigate to placeholder pages/components with simple headings
+      (e.g. “Create New Campaign – Coming Soon”)
+    - or show a simple empty state section on the right.
+• Implement simple routing (React Router or a light conditional rendering approach) so that
+  the main content area changes when nav items are clicked.
+
+Styling:
+• Sidebar width: ~220–260px
+• Background: very light grey (#F5F5F5 or #EAEBEC)
+• Use a vertical list with:
+    - Primary items slightly larger (Home, Campaigns, Reporting)
+    - Indented sub-items for Campaigns and Reporting
+• Highlight the active item with:
+    - Bold text
+    - A Yappy-orange (#F77C22) left border or pill background
+
+-----------------------------
+4) LAYOUT SHELL
+-----------------------------
+Overall layout should be:
+
+[ TOP NAV BAR ]
+[ SIDEBAR ] [ MAIN CONTENT AREA ]
+
+• Main content area:
+    - Contains the Home screen (hero metrics + flipcards) by default.
+    - Has generous padding (e.g. 24–32px).
+• Ensure the layout is responsive and scrollable, without overlapping the top nav or sidebar.
+
+-----------------------------
+5) CLEANUP / CONSISTENCY
+-----------------------------
+• Remove any old page-level headings that conflict with this new shell (“Executive Summary” etc).
+• Make sure the hero metrics and flipcards visually align nicely within the new main content area (adjust margins if required).
+• Do not change the content or design of the cards themselves; just integrate them into the new shell.
+
+-----------------------------
+6) DELIVERABLE
+-----------------------------
+• Update the main layout / App component to include:
+    - TopNav component
+    - SidebarNav component
+    - Routed or conditional MainContent area with Home + placeholder pages.
+• Show me the updated App-level JSX and any new components (TopNav, SidebarNav, etc.), plus key CSS changes.

@@ -1,0 +1,82 @@
+Please update the EXISTING Home screen prototype to add an "Export Hero Metrics" feature so I can reuse the hero metrics in slide decks and reports.
+
+Do NOT redesign the layout – just extend the current hero metrics section with export options.
+
+------------------------------------------------------------
+1) ADD EXPORT CONTROL NEAR HERO METRICS
+------------------------------------------------------------
+• In the Home screen, near the hero metrics row (the 4 KPI cards), add a small control on the right side, something like:
+    [ Export Hero Metrics ▾ ]
+
+• When clicked, it should open a simple dropdown or menu with export options:
+    - Export as PNG
+    - Export as PDF
+    - Export as CSV (data only)
+
+Keep the UI minimal and not visually dominant compared to the metrics themselves.
+
+------------------------------------------------------------
+2) EXPORT SCOPE
+------------------------------------------------------------
+• The export should capture ONLY the hero metrics widget area:
+    - The 4 metric cards (Active Targets, Roles Reached, Key Roles Engaged, Content Watch Time)
+    - Any container/background that visually frames them
+• Do NOT capture the whole page, nav, or flipcards.
+
+------------------------------------------------------------
+3) IMPLEMENTATION – PNG & PDF
+------------------------------------------------------------
+You can use a client-side DOM-to-image approach (e.g. html2canvas or a similar library) to capture the hero metrics container.
+
+Example approach:
+• Wrap the hero metrics row in a container with an id like:
+    <div id="hero-metrics-widget">...</div>
+
+• For "Export as PNG":
+    - Render that container to a canvas (e.g. using html2canvas)
+    - Trigger a download of the resulting PNG file
+    - Use a sensible filename, e.g. `yappy-hero-metrics.png`
+
+• For "Export as PDF":
+    - Either:
+       - Convert the PNG into a single-page PDF (e.g. using jsPDF), OR
+       - Render directly to a PDF if using a combined library
+    - Trigger a download, e.g. `yappy-hero-metrics.pdf`
+
+Make sure the exported image/PDF looks crisp enough to be dropped into a PowerPoint / Google Slides deck.
+
+------------------------------------------------------------
+4) EXPORT AS CSV (DATA ONLY)
+------------------------------------------------------------
+Also provide a "Export as CSV" option that just exports the underlying metric values and labels.
+
+• The CSV should include one row per hero metric, with at least:
+    label, value, trend
+
+For example:
+    "Active Targets", 24, "+5%"
+    "Roles Reached", 312, "+12%"
+    "Key Roles Engaged", 87, "+8%"
+    "Content Watch Time (hrs)", 412, "+3%"
+
+• Generate this CSV on the client and trigger a file download named `yappy-hero-metrics.csv`.
+
+------------------------------------------------------------
+5) WIREFRAME / UX NOTES
+------------------------------------------------------------
+• Keep the Export control small and discrete (e.g. a text button or icon+label above or aligned to the right of the hero metrics row).
+• Do NOT change the visual design of the hero metric cards themselves.
+• The export menu should close automatically after the user picks an option.
+
+------------------------------------------------------------
+6) DELIVERABLE
+------------------------------------------------------------
+Please:
+• Show the updated component(s) that render:
+    - The hero metrics
+    - The Export Hero Metrics control + dropdown
+• Show the utility code that:
+    - Captures the hero metrics widget as PNG
+    - Generates the PDF
+    - Builds and downloads the CSV
+• If you bring in any libraries (e.g. html2canvas, jsPDF), show the import statements and any necessary setup.

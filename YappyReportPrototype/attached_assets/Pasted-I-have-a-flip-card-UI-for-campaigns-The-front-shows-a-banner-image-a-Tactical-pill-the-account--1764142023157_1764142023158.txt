@@ -1,0 +1,81 @@
+I have a flip-card UI for campaigns. The front shows a banner image, a “Tactical” pill, the account name (e.g. “Southern Rail Logistics”), and two stats: “Engagement” and “Pipe Value”. The back of the card currently shows only “Top Content Engagement”.
+
+I want to refine this component so it supports tactical influence reporting. Please update the component as follows. Do NOT redesign the card visually—just adjust the data displayed.
+
+---
+
+1. REMOVE PIPE VALUE FROM THE FRONT OF THE CARD
+The “Pipe Value” metric is no longer needed. Please remove it entirely.
+
+Replace “Pipe Value” with a new metric called:
+
+    ROLE COVERAGE (%)
+
+Definition:
+    Role Coverage % = (# of role groups engaged) / (total relevant role groups for this account) × 100
+
+Display example on the front:
+    ROLE COVERAGE
+    38%
+
+Place it in the same position where Pipe Value was before, using the same typography and spacing conventions.
+
+---
+
+2. KEEP THE REST OF THE FRONT LAYOUT UNCHANGED
+- Keep the banner image, “Tactical” pill, account name, and Engagement Level.
+- Maintain all spacing, padding, card radius, etc.
+
+---
+
+3. ON THE BACK OF THE CARD — ADD KEY ROLE ENGAGEMENT
+Keep the existing “Top Content Engagement” block, but add a new block under it.
+
+Add a section:
+
+    KEY ROLES ENGAGED
+
+Below that, show up to three role groups with their engagement levels. Example:
+
+    Operations – High
+    Finance – Medium
+    Technology – Low
+
+Next to each role group, include a small horizontal bar or pill that visually encodes the level:
+- High = full-length coloured bar (green or yellow)
+- Medium = shorter/lighter bar
+- Low = pale grey bar
+
+Use the same style as the existing content engagement bars.
+
+---
+
+4. DATA MODEL CHANGE
+Update the component so it accepts a prop like:
+
+    keyRolesEngaged: Array<{
+      group: string;        // e.g. "Operations"
+      level: "High" | "Medium" | "Low";
+    }>
+
+Also add:
+
+    roleCoverage: number   // percentage for the front of the card
+
+---
+
+5. LAYOUT REQUIREMENTS
+- Front of card height should remain unchanged.
+- Back of card should NOT overflow; if necessary, allow the inside content to scroll on very small screens.
+- Maintain consistent padding and spacing with current design.
+
+---
+
+6. DELIVERABLE
+Please update the JSX/HTML and CSS (or Tailwind/styled-components) to implement:
+- Removal of Pipe Value
+- Addition of Role Coverage (%)
+- Adding new Key Roles Engaged section to the back of the card
+- Rendering the new data model correctly
+
+Show me the updated component code after applying these changes.
