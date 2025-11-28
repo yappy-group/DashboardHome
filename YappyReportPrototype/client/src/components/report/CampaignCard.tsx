@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, X } from "lucide-react";
@@ -10,7 +10,7 @@ interface CampaignCardProps {
   image: string;
   status: "Active" | "Completed" | "Planned";
   metrics?: { label: string; value: string }[];
-  backContent?: React.ReactNode;
+  backContent?: ReactNode;
 }
 
 export function CampaignCard({ title, type, image, status, metrics, backContent }: CampaignCardProps) {

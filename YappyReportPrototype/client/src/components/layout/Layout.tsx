@@ -3,16 +3,14 @@ import { cn } from "@/lib/utils";
 import { Bell, Search, ChevronDown, ChevronRight, Home, Target, BarChart2, Image } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 export function TopNav() {
   return (
     <header className="h-16 bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6">
       {/* Left: Logo */}
       <div className="flex items-center w-64">
-        <Link href="/">
-          <a className="text-2xl font-bold text-primary tracking-tight">Yappy</a>
-        </Link>
+        <Link href="/" className="text-2xl font-bold text-primary tracking-tight">Yappy</Link>
       </div>
 
       {/* Center: Search */}
@@ -46,7 +44,7 @@ export function TopNav() {
 interface NavItemProps {
   href: string;
   label: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   active?: boolean;
   hasSubItems?: boolean;
   onClick?: () => void;
@@ -55,46 +53,42 @@ interface NavItemProps {
 
 function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen }: NavItemProps) {
   return (
-    <Link href={href}>
-      <a className={cn(
-        "flex items-center justify-between px-4 py-3 text-sm font-medium mr-4 transition-all relative group mb-1",
-        active 
-          ? "text-primary bg-gradient-to-b from-white to-[#FFF3E5] border-l-[3px] border-primary font-bold" 
-          : "text-gray-600 bg-gradient-to-b from-white to-[#F9F4EF] hover:to-[#FFF3E5] border-l-[3px] border-transparent"
-      )}>
-        <div className="flex items-center gap-3">
-          {icon && (
-            <span className={cn("transition-colors", active ? "text-primary" : "text-gray-500 group-hover:text-primary")}>
-              {icon}
-            </span>
-          )}
-          <span>{label}</span>
-        </div>
-        {hasSubItems && (
-          <div onClick={(e) => { e.preventDefault(); onClick?.(); }} className="cursor-pointer p-1 hover:bg-black/5 rounded">
-            {isOpen ? (
-              <ChevronDown className="h-4 w-4 text-gray-400" />
-            ) : (
-              <ChevronRight className="h-4 w-4 text-gray-400" />
-            )}
-          </div>
+    <Link href={href} className={cn(
+      "flex items-center justify-between px-4 py-3 text-sm font-medium mr-4 transition-all relative group mb-1",
+      active 
+        ? "text-primary bg-gradient-to-b from-white to-[#FFF3E5] border-l-[3px] border-primary font-bold" 
+        : "text-gray-600 bg-gradient-to-b from-white to-[#F9F4EF] hover:to-[#FFF3E5] border-l-[3px] border-transparent"
+    )}>
+      <div className="flex items-center gap-3">
+        {icon && (
+          <span className={cn("transition-colors", active ? "text-primary" : "text-gray-500 group-hover:text-primary")}>
+            {icon}
+          </span>
         )}
-      </a>
+        <span>{label}</span>
+      </div>
+      {hasSubItems && (
+        <div onClick={(e) => { e.preventDefault(); onClick?.(); }} className="cursor-pointer p-1 hover:bg-black/5 rounded">
+          {isOpen ? (
+            <ChevronDown className="h-4 w-4 text-gray-400" />
+          ) : (
+            <ChevronRight className="h-4 w-4 text-gray-400" />
+          )}
+        </div>
+      )}
     </Link>
   );
 }
 
 function SubNavItem({ href, label, active }: { href: string, label: string, active?: boolean }) {
   return (
-    <Link href={href}>
-      <a className={cn(
-        "block py-2 pl-12 pr-4 text-sm transition-colors border-l border-gray-100 ml-6 mb-0.5 rounded-r-md",
-        active 
-          ? "text-primary font-medium bg-orange-50/30" 
-          : "text-gray-500 hover:text-gray-900 hover:bg-[#F3F3F3] font-normal"
-      )}>
-        {label}
-      </a>
+    <Link href={href} className={cn(
+      "block py-2 pl-12 pr-4 text-sm transition-colors border-l border-gray-100 ml-6 mb-0.5 rounded-r-md",
+      active 
+        ? "text-primary font-medium bg-orange-50/30" 
+        : "text-gray-500 hover:text-gray-900 hover:bg-[#F3F3F3] font-normal"
+    )}>
+      {label}
     </Link>
   );
 }
@@ -197,7 +191,7 @@ export function Sidebar() {
   );
 }
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-white">
       <TopNav />
