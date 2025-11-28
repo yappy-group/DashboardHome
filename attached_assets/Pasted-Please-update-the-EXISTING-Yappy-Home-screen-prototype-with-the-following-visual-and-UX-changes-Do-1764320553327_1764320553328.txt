@@ -1,0 +1,105 @@
+Please update the EXISTING Yappy Home screen prototype with the following visual and UX changes. 
+Do NOT redesign the hero cards or flip cards from scratch; just refine labels, nav styling, and behaviour as described.
+
+------------------------------------------------------------
+1) EXPORT BUTTON LABEL
+------------------------------------------------------------
+• Change the button label near the hero metrics from:
+      "Export Hero Metrics"
+  to:
+      "Export Chart"
+
+• Keep the same functionality (PNG/PDF/CSV export of the hero metrics area).
+• If the button tooltip or aria-label references "hero metrics", update it to something neutral like
+  "Export performance overview chart".
+
+------------------------------------------------------------
+2) LEFT SIDEBAR MENU – VISUAL RESTYLE
+------------------------------------------------------------
+The left nav currently looks visually disconnected from the main panels. 
+Please restyle it so it better matches the clean card aesthetic used in the main content.
+
+Guidance:
+• Overall:
+   - Background: solid white or very light neutral (NOT a strong gradient).
+   - Remove heavy gradient fills and overly warm tints; keep it subtle and modern.
+   - Use the same border radius language as the cards (e.g. rounded corners on the active item pill).
+
+• Items:
+   - Keep the same structure and labels (Home, Campaigns, Reporting, Creative with sub-items).
+   - Use simple, line-style icons to the left of each top-level label (consistent size and colour).
+   - Active item:
+       - Light background “pill” (e.g. #FFF7F0 or similar light orange tint).
+       - A slim left border OR small indicator in Yappy orange (#F77C22).
+       - Text in medium/bold weight.
+   - Hover state:
+       - Very light grey background (#F5F5F5), no heavy borders.
+
+• Typography:
+   - Use the same font and base size as the main panels.
+   - Top-level items slightly larger or bolder than sub-items.
+   - Sub-items indented and a bit lighter in weight.
+
+The goal is a calm, minimal sidebar that visually harmonises with the hero metric cards and campaign cards.
+
+------------------------------------------------------------
+3) HERO METRICS CONTEXT COPY (TOTALS VS TRENDS)
+------------------------------------------------------------
+Add a short line of explanatory text near the hero metrics row to clarify the timeframe.
+
+• Place this text just above or below the row title (currently "Performance Overview") or aligned to the right under the title.
+
+Suggested copy:
+   "Totals shown are all-time; trend indicators show month-on-month change."
+
+• Use smaller, lighter text than the main heading so it’s informative but not visually loud.
+
+------------------------------------------------------------
+4) FLIP CARD CTA – VIEW CAMPAIGN DASHBOARD
+------------------------------------------------------------
+I want each campaign flip card to:
+   a) Still clearly indicate it can flip.
+   b) Also provide a CTA to navigate to a dedicated campaign dashboard under the Campaigns menu.
+
+Please implement the following behaviour:
+
+FRONT OF CARD:
+• Keep the existing visual design and flip indicator (e.g. the arrow icon or hover effect that suggests flipping).
+• The primary interaction with the main card surface should continue to FLIP the card.
+
+BACK OF CARD:
+• Keep the “Top 3 Targets” / “Top 3 Content” information as implemented.
+• Add a clear CTA element, such as a button or text link, e.g.:
+      [ View Campaign Details ]
+• Clicking this CTA should navigate to the campaign dashboard view associated with that card.
+   - This view should live under the existing Campaigns section (e.g. route like `/campaigns/:id`).
+   - For now, it can be a simple placeholder page with the campaign name and “Campaign Dashboard – Coming Soon”.
+
+Interaction rules:
+• Clicking anywhere on the card body (except the CTA button) toggles flip state (front ↔ back).
+• Clicking the "View Campaign Details" CTA does NOT flip; it navigates to the campaign dashboard view.
+
+Visual style:
+• The CTA should be obvious but not visually overpowering.
+• Use a small primary button or strong link in Yappy orange, aligned to the bottom-right of the back of the card.
+
+------------------------------------------------------------
+5) ROUTING / NAV CONSISTENCY
+------------------------------------------------------------
+• Ensure that navigating to a campaign dashboard from the flip card:
+   - Highlights the appropriate item under Campaigns in the left nav.
+   - Updates the main content area while keeping the top nav and sidebar intact.
+
+------------------------------------------------------------
+6) DELIVERABLE
+------------------------------------------------------------
+Please share:
+• Updated JSX/TSX for:
+   - The hero metrics section (with the new context text and "Export Chart" label).
+   - The SidebarNav component with the new visual styling.
+   - The campaign flip card component with the new "View Campaign Details" CTA.
+• Any new routing code for campaign dashboard views.
+• CSS/Tailwind/styled-component changes for:
+   - Sidebar restyle
+   - Hero metrics context text
+   - CTA on the back of the flip cards.

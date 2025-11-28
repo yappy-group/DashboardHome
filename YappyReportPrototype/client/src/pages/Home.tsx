@@ -150,15 +150,18 @@ export default function Home() {
       
       {/* HERO METRICS */}
       <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-foreground tracking-tight">Performance Overview</h2>
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <h2 className="text-xl font-bold text-foreground tracking-tight">Performance Overview</h2>
+            <p className="text-xs text-muted-foreground mt-1">Totals shown are all-time; trend indicators show month-on-month change.</p>
+          </div>
           
           {/* Export Control */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="gap-2 text-xs font-medium h-8">
+              <Button variant="outline" size="sm" className="gap-2 text-xs font-medium h-8" aria-label="Export performance overview chart">
                 <Download className="w-3.5 h-3.5" />
-                Export Hero Metrics
+                Export Chart
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
@@ -178,7 +181,7 @@ export default function Home() {
           </DropdownMenu>
         </div>
 
-        <div id="hero-metrics-widget" className="p-1 bg-[#fcfcfc] rounded-xl"> 
+        <div id="hero-metrics-widget" className="p-1 bg-[#fcfcfc] rounded-xl mt-4"> 
            {/* Added wrapper for cleaner capture with slight padding/bg if needed, currently subtle */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <MetricCard 
