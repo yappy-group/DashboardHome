@@ -54,14 +54,14 @@ interface NavItemProps {
 function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen }: NavItemProps) {
   return (
     <Link href={href} className={cn(
-      "flex items-center justify-between px-4 py-3 text-sm font-medium mr-4 transition-all relative group mb-1",
+      "flex items-center justify-between px-4 py-2.5 text-sm font-medium mx-3 rounded-lg transition-all relative group",
       active 
-        ? "text-primary bg-gradient-to-b from-white to-[#FFF3E5] border-l-[3px] border-primary font-bold" 
-        : "text-gray-600 bg-gradient-to-b from-white to-[#F9F4EF] hover:to-[#FFF3E5] border-l-[3px] border-transparent"
+        ? "text-primary bg-[#FFF7F0] font-semibold border-l-[3px] border-primary" 
+        : "text-gray-600 hover:bg-[#F5F5F5] border-l-[3px] border-transparent"
     )}>
       <div className="flex items-center gap-3">
         {icon && (
-          <span className={cn("transition-colors", active ? "text-primary" : "text-gray-500 group-hover:text-primary")}>
+          <span className={cn("transition-colors", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
             {icon}
           </span>
         )}
@@ -83,10 +83,10 @@ function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen }: Na
 function SubNavItem({ href, label, active }: { href: string, label: string, active?: boolean }) {
   return (
     <Link href={href} className={cn(
-      "block py-2 pl-12 pr-4 text-sm transition-colors border-l border-gray-100 ml-6 mb-0.5 rounded-r-md",
+      "block py-2 pl-11 pr-4 text-[13px] transition-colors ml-6 mr-3 rounded-md",
       active 
-        ? "text-primary font-medium bg-orange-50/30" 
-        : "text-gray-500 hover:text-gray-900 hover:bg-[#F3F3F3] font-normal"
+        ? "text-primary font-medium bg-[#FFF7F0]" 
+        : "text-gray-500 hover:text-gray-700 hover:bg-[#F5F5F5]"
     )}>
       {label}
     </Link>
@@ -100,8 +100,8 @@ export function Sidebar() {
   const [creativeOpen, setCreativeOpen] = useState(true);
 
   return (
-    <aside className="w-64 bg-[#F5F5F5] border-r border-gray-200 fixed top-16 bottom-0 left-0 z-40 overflow-y-auto py-6">
-      <nav className="space-y-1">
+    <aside className="w-64 bg-white border-r border-gray-100 fixed top-16 bottom-0 left-0 z-40 overflow-y-auto py-4">
+      <nav className="space-y-0.5">
         <NavItem 
           href="/" 
           label="Home" 
@@ -109,7 +109,7 @@ export function Sidebar() {
           active={location === "/"} 
         />
         
-        <div className="pt-2">
+        <div className="mt-2">
           <NavItem 
             href="/campaigns" 
             label="Campaigns" 
@@ -120,7 +120,7 @@ export function Sidebar() {
             onClick={() => setCampaignsOpen(!campaignsOpen)}
           />
           {campaignsOpen && (
-            <div className="mt-1 space-y-0.5 pb-2">
+            <div className="mt-1 space-y-0.5 pb-1">
               <SubNavItem 
                 href="/campaigns/new" 
                 label="Create New Campaign" 
@@ -135,7 +135,7 @@ export function Sidebar() {
           )}
         </div>
 
-        <div className="pt-2">
+        <div className="mt-2">
           <NavItem 
             href="/reporting" 
             label="Reporting" 
@@ -146,7 +146,7 @@ export function Sidebar() {
             onClick={() => setReportingOpen(!reportingOpen)}
           />
           {reportingOpen && (
-            <div className="mt-1 space-y-0.5 pb-2">
+            <div className="mt-1 space-y-0.5 pb-1">
               <SubNavItem 
                 href="/reporting/always-on" 
                 label="Always On Campaigns" 
@@ -161,7 +161,7 @@ export function Sidebar() {
           )}
         </div>
 
-        <div className="pt-2">
+        <div className="mt-2">
           <NavItem 
             href="/creative" 
             label="Creative" 
@@ -172,7 +172,7 @@ export function Sidebar() {
             onClick={() => setCreativeOpen(!creativeOpen)}
           />
           {creativeOpen && (
-            <div className="mt-1 space-y-0.5 pb-2">
+            <div className="mt-1 space-y-0.5 pb-1">
               <SubNavItem 
                 href="/creative/library" 
                 label="Content Library" 

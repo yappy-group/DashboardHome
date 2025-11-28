@@ -218,6 +218,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Top Left: Brand Awareness */}
           <CampaignCard 
+            id="brand-awareness"
             title="Brand Awareness Campaign"
             type="Always On"
             image={brandImg}
@@ -231,6 +232,7 @@ export default function Home() {
           
           {/* Top Right: Western Minerals */}
           <CampaignCard 
+            id="western-minerals"
             title="Western Minerals Group"
             type="Tactical"
             image={westernImg}
@@ -257,6 +259,7 @@ export default function Home() {
 
           {/* Bottom Left: IronHarbor */}
           <CampaignCard 
+            id="ironharbor"
             title="IronHarbor Mining Co."
             type="Tactical"
             image={ironImg}
@@ -282,6 +285,7 @@ export default function Home() {
 
           {/* Bottom Right: Southern Rail */}
           <CampaignCard 
+            id="southern-rail"
             title="Southern Rail Logistics"
             type="Tactical"
             image={southernImg}

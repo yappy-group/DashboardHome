@@ -1,10 +1,13 @@
 import { useState, type ReactNode } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "wouter";
 
 interface CampaignCardProps {
+  id: string;
   title: string;
   type: string;
   image: string;
@@ -13,7 +16,7 @@ interface CampaignCardProps {
   backContent?: ReactNode;
 }
 
-export function CampaignCard({ title, type, image, status, metrics, backContent }: CampaignCardProps) {
+export function CampaignCard({ id, title, type, image, status, metrics, backContent }: CampaignCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -68,7 +71,7 @@ export function CampaignCard({ title, type, image, status, metrics, backContent 
 
         {/* BACK OF CARD */}
         <Card className="absolute w-full h-full backface-hidden rotate-y-180 border-none shadow-sm bg-white overflow-hidden flex flex-col">
-          <div className="p-6 flex items-center justify-between border-b border-gray-100">
+          <div className="p-4 flex items-center justify-between border-b border-gray-100">
             <h3 className="font-bold text-lg text-foreground truncate pr-4">{title}</h3>
             <button 
               onClick={(e) => {
@@ -89,6 +92,19 @@ export function CampaignCard({ title, type, image, status, metrics, backContent 
               </div>
             )}
           </CardContent>
+          
+          {/* View Campaign Details CTA */}
+          <div className="p-4 border-t border-gray-100 flex justify-end">
+            <Link href={`/campaigns/${id}`} onClick={(e) => e.stopPropagation()}>
+              <Button 
+                size="sm" 
+                className="gap-2 bg-primary hover:bg-primary/90 text-white"
+              >
+                View Campaign Details
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Button>
+            </Link>
+          </div>
         </Card>
       </div>
     </div>
