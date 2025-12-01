@@ -1,0 +1,60 @@
+You’re editing an existing React + TypeScript + Tailwind “Client Portal” prototype (home dashboard with hero metrics and campaign flip cards).
+Please update the navigation to match this new IA, without breaking the existing hero metrics / cards.
+
+Tech assumptions: React, TypeScript, Tailwind, React Router.
+
+1. Global layout
+	•	Keep the existing top bar (search, notifications, user avatar).
+	•	Keep the home content (hero metrics + flip cards) for the / route.
+
+2. Update left sidebar nav to:
+	•	Home
+	•	Targets
+	•	“All Targets” (targets list)
+	•	“Target Dashboard” (single-target view)
+	•	Campaigns
+	•	“Campaigns Home”
+	•	“Always On Campaigns”
+	•	“Tactical Campaigns”
+	•	Creative
+	•	“Content Library”
+	•	“Messaging Strategy”
+	•	“Add Content”
+
+Use a simple vertical sidebar with section labels and nested items (indent child items under their parent). Highlight:
+	•	Active top-level item (solid or bold)
+	•	Active child item (subtle accent)
+
+3. Icons
+
+Use lucide-react icons or similar:
+	•	Home: Home
+	•	Targets: Target
+	•	Campaigns: Flag or Layers
+	•	Creative: Palette
+	•	Child links can be icon-less or use smaller bullets.
+
+4. Routing
+	•	Set up React Router routes for:
+	•	/ → Home (existing dashboard)
+	•	/targets → All Targets (simple table or list placeholder)
+	•	/targets/:id → Target Dashboard (stub layout with placeholder sections: “Target Metadata”, “Target Hero Metrics”, “Target Activity Feed”, “Tactical Performance”, “Always On Contributions”)
+	•	/campaigns → Campaigns Home (placeholder text)
+	•	/campaigns/always-on → Always On Campaigns (placeholder table/list)
+	•	/campaigns/tactical → Tactical Campaigns (list of tacticals; each row links out to the corresponding /targets/:id dashboard rather than a separate tactical page)
+	•	/creative/library → Content Library (grid/list placeholder)
+	•	/creative/messaging → Messaging Strategy (placeholder)
+	•	/creative/add → Add Content (simple form stub)
+
+The key behaviour: Tactical campaign rows link to Target Dashboards, not to standalone tactical pages.
+
+5. Visual style
+	•	Keep the existing Yappy look (light background, Yappy orange accent).
+	•	Sidebar background slightly darker than page background; active item uses Yappy orange text or left border.
+	•	Use Tailwind for spacing/typography; keep it clean and minimal (no heavy cards/shadows for nav).
+
+6. Small UX niceties
+	•	Show the current section title at the top of the main content area (e.g. “Targets”, “Campaigns”, “Creative”).
+	•	When navigating, the sidebar should correctly reflect the active route (parent + child).
+
+Please update the existing code accordingly, refactoring where needed but preserving the home dashboard content and styling.

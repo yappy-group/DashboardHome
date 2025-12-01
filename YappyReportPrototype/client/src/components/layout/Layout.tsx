@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Bell, Search, ChevronDown, ChevronRight, Home, Target, BarChart2, Image } from "lucide-react";
+import { Bell, Search, ChevronDown, ChevronRight, Home, Target, Flag, Palette } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { useState, type ReactNode } from "react";
@@ -95,9 +95,9 @@ function SubNavItem({ href, label, active }: { href: string, label: string, acti
 
 export function Sidebar() {
   const [location] = useLocation();
-  const [campaignsOpen, setCampaignsOpen] = useState(true);
-  const [reportingOpen, setReportingOpen] = useState(true);
-  const [creativeOpen, setCreativeOpen] = useState(true);
+  const [targetsOpen, setTargetsOpen] = useState(false);
+  const [campaignsOpen, setCampaignsOpen] = useState(false);
+  const [creativeOpen, setCreativeOpen] = useState(false);
 
   return (
     <aside className="w-64 bg-white border-r border-gray-100 fixed top-16 bottom-0 left-0 z-40 overflow-y-auto py-4">
@@ -109,11 +109,37 @@ export function Sidebar() {
           active={location === "/"} 
         />
         
-        <div className="mt-2">
+        <div className="mt-4">
+          <NavItem 
+            href="/targets" 
+            label="Targets" 
+            icon={<Target className="w-4 h-4" />}
+            active={location.startsWith("/targets")}
+            hasSubItems
+            isOpen={targetsOpen}
+            onClick={() => setTargetsOpen(!targetsOpen)}
+          />
+          {targetsOpen && (
+            <div className="mt-1 space-y-0.5 pb-1">
+              <SubNavItem 
+                href="/targets" 
+                label="All Targets" 
+                active={location === "/targets"}
+              />
+              <SubNavItem 
+                href="/targets/1" 
+                label="Target Dashboard" 
+                active={location.startsWith("/targets/") && location !== "/targets"}
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="mt-4">
           <NavItem 
             href="/campaigns" 
             label="Campaigns" 
-            icon={<Target className="w-4 h-4" />}
+            icon={<Flag className="w-4 h-4" />}
             active={location.startsWith("/campaigns")}
             hasSubItems
             isOpen={campaignsOpen}
@@ -122,50 +148,29 @@ export function Sidebar() {
           {campaignsOpen && (
             <div className="mt-1 space-y-0.5 pb-1">
               <SubNavItem 
-                href="/campaigns/new" 
-                label="Create New Campaign" 
-                active={location === "/campaigns/new"}
+                href="/campaigns" 
+                label="Campaigns Home" 
+                active={location === "/campaigns"}
               />
               <SubNavItem 
-                href="/campaigns/edit" 
-                label="Edit Campaign" 
-                active={location === "/campaigns/edit"}
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="mt-2">
-          <NavItem 
-            href="/reporting" 
-            label="Reporting" 
-            icon={<BarChart2 className="w-4 h-4" />}
-            active={location.startsWith("/reporting")}
-            hasSubItems
-            isOpen={reportingOpen}
-            onClick={() => setReportingOpen(!reportingOpen)}
-          />
-          {reportingOpen && (
-            <div className="mt-1 space-y-0.5 pb-1">
-              <SubNavItem 
-                href="/reporting/always-on" 
+                href="/campaigns/always-on" 
                 label="Always On Campaigns" 
-                active={location === "/reporting/always-on"}
+                active={location === "/campaigns/always-on"}
               />
               <SubNavItem 
-                href="/reporting/tactical" 
+                href="/campaigns/tactical" 
                 label="Tactical Campaigns" 
-                active={location === "/reporting/tactical"}
+                active={location === "/campaigns/tactical"}
               />
             </div>
           )}
         </div>
 
-        <div className="mt-2">
+        <div className="mt-4">
           <NavItem 
             href="/creative" 
             label="Creative" 
-            icon={<Image className="w-4 h-4" />}
+            icon={<Palette className="w-4 h-4" />}
             active={location.startsWith("/creative")}
             hasSubItems
             isOpen={creativeOpen}
@@ -177,6 +182,11 @@ export function Sidebar() {
                 href="/creative/library" 
                 label="Content Library" 
                 active={location === "/creative/library"}
+              />
+              <SubNavItem 
+                href="/creative/messaging" 
+                label="Messaging Strategy" 
+                active={location === "/creative/messaging"}
               />
               <SubNavItem 
                 href="/creative/add" 

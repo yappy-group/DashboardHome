@@ -7,12 +7,13 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Placeholder from "@/pages/Placeholder";
 import CampaignDashboard from "@/pages/CampaignDashboard";
+import TargetDashboard from "@/pages/TargetDashboard";
 import { Layout } from "@/components/layout/Layout";
 import { useEffect } from "react";
 
-function CampaignDashboardRoute() {
-  const [, params] = useRoute("/campaigns/:id");
-  return <CampaignDashboard id={params?.id || ""} />;
+function TargetDashboardRoute() {
+  const [, params] = useRoute("/targets/:id");
+  return <TargetDashboard id={params?.id || ""} />;
 }
 
 function Router() {
@@ -29,30 +30,30 @@ function Router() {
     <Layout>
       <Switch>
         <Route path="/" component={Home} />
+        
+        {/* Targets Routes */}
+        <Route path="/targets">
+           <Placeholder title="All Targets" />
+        </Route>
+        <Route path="/targets/:id" component={TargetDashboardRoute} />
+        
+        {/* Campaigns Routes */}
         <Route path="/campaigns">
-           <Placeholder title="All Campaigns" />
+           <Placeholder title="Campaigns Home" />
         </Route>
-        <Route path="/campaigns/new">
-           <Placeholder title="Create New Campaign" />
-        </Route>
-        <Route path="/campaigns/edit">
-           <Placeholder title="Edit Campaign" />
-        </Route>
-        <Route path="/campaigns/:id" component={CampaignDashboardRoute} />
-        <Route path="/reporting">
-           <Placeholder title="Reporting Overview" />
-        </Route>
-        <Route path="/reporting/always-on">
+        <Route path="/campaigns/always-on">
            <Placeholder title="Always On Campaigns" />
         </Route>
-        <Route path="/reporting/tactical">
+        <Route path="/campaigns/tactical">
            <Placeholder title="Tactical Campaigns" />
         </Route>
-        <Route path="/creative">
-           <Placeholder title="Creative Overview" />
-        </Route>
+        
+        {/* Creative Routes */}
         <Route path="/creative/library">
            <Placeholder title="Content Library" />
+        </Route>
+        <Route path="/creative/messaging">
+           <Placeholder title="Messaging Strategy" />
         </Route>
         <Route path="/creative/add">
            <Placeholder title="Add Content" />
