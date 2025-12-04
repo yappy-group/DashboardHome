@@ -49,7 +49,7 @@ export function CampaignCard({ id, title, type, image, status, metrics, backCont
             <div className="grid grid-cols-3 gap-4">
               {metrics?.map((m, i) => (
                 <div key={i}>
-                  <p className="text-xs text-muted-foreground uppercase font-medium mb-1">{m.label}</p>
+                  <p className="text-xs text-muted-foreground uppercase font-medium mb-1 whitespace-nowrap">{m.label}</p>
                   <p className="text-lg font-bold text-foreground">{m.value}</p>
                 </div>
               ))}
