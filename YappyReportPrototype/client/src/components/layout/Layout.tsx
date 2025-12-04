@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Bell, Search, Home, Target, Flag, BookOpen, BarChart3 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 
 export function TopNav() {
   return (
@@ -76,6 +76,7 @@ function NavItem({ href, label, icon, active, isCollapsed, onNavigate }: NavItem
 export function Sidebar() {
   const [location] = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const navItems = [
     { href: "/", label: "Home", icon: <Home className="w-4 h-4" /> },
@@ -92,8 +93,31 @@ export function Sidebar() {
     return location.startsWith(href);
   };
 
+  // Auto-collapse after 3 seconds of inactivity
+  useEffect(() => {
+    if (isExpanded) {
+      // Clear existing timeout if any
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      // Set new timeout to collapse after 3 seconds
+      timeoutRef.current = setTimeout(() => {
+        setIsExpanded(false);
+      }, 3000);
+    }
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [isExpanded]);
+
   const handleCollapse = () => {
     setIsExpanded(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsExpanded(true);
   };
 
   return (
@@ -112,7 +136,7 @@ export function Sidebar() {
           "bg-white border-r border-gray-100 fixed top-16 bottom-0 left-0 z-40 overflow-y-auto py-4 transition-all duration-300 ease-out cursor-pointer",
           isExpanded ? "w-64" : "w-20"
         )}
-        onMouseEnter={() => setIsExpanded(true)}
+        onMouseEnter={handleMouseEnter}
         onClick={handleCollapse}
       >
         <nav className="space-y-0.5">
