@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Placeholder from "@/pages/Placeholder";
+import Targets from "@/pages/Targets";
 import CampaignDashboard from "@/pages/CampaignDashboard";
 import TargetDashboard from "@/pages/TargetDashboard";
 import { Layout } from "@/components/layout/Layout";
@@ -31,7 +32,7 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/dashboard" component={Home} />
-        <Route path="/targets" component={() => <Placeholder title="Targets" />} />
+        <Route path="/targets" component={Targets} />
         <Route path="/campaigns" component={() => <Placeholder title="Campaigns" />} />
         <Route path="/content" component={() => <Placeholder title="Content" />} />
         <Route path="/analytics" component={() => <Placeholder title="Analytics" />} />

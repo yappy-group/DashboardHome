@@ -10,6 +10,20 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (December 4, 2025)
 
+**Targets Page (New):**
+- Comprehensive Targets page with data table and expandable right-side drawer
+- Page header with title, description, search bar, status filter dropdown, and "Add Target" button
+- Data table with columns: Logo (avatar initials), Company Name, Status badge (Active/Inactive), Last Activity, Arrow button
+- Right-side drawer (Sheet component) slides in from right (~50% width) with:
+  - Header showing company logo, name, status badge, and last activity
+  - Tabbed interface with 4 tabs: Overview, Key Roles, Activity, Campaigns
+- Overview tab: 4 metric cards (Impressions, Engagement, Roles Covered, Content Views), recent activity snapshot
+- Key Roles tab: List of roles with edit/delete icons, "Add Role" button opens dialog
+- Activity tab: Filter dropdown (All/Platform/Manual), "Add Activity" button opens dialog with type/date/description/related fields, chronological feed with visual distinction between manual (blue) and platform (orange) entries
+- Campaigns tab: Campaign cards with status/metrics, "View Dashboard" link, empty state for no campaigns
+- Mock data for 6 target companies with realistic activities and campaigns
+- Smooth slide-in/out animations, drawer closes on overlay click or X button
+
 **Navigation Structure (Simplified):**
 - **Top-level navigation items only** (no submenus):
   - Home → Dashboard with hero metrics & campaign cards
@@ -20,6 +34,7 @@ Preferred communication style: Simple, everyday language.
 - Collapsible sidebar - shows only icons by default (80px), expands to show full menu with labels (256px)
 - Hover over sidebar to expand and reveal labels
 - Click anywhere on sidebar (or outside) to collapse it back
+- Auto-collapse after 3 seconds of inactivity
 - Each item navigates directly to its main page when clicked
 - Smooth transitions with semi-transparent overlay when expanded
 - Active page highlighted in orange with light background
@@ -28,17 +43,21 @@ Preferred communication style: Simple, everyday language.
 **Routing & Pages:**
 - / → Home (dashboard)
 - /dashboard → Home (dashboard)
-- /targets → Targets page
+- /targets → Targets page (fully implemented)
 - /targets/:id → Individual target dashboard
-- /campaigns → Campaigns page
-- /content → Content page
-- /analytics → Analytics page
+- /campaigns → Campaigns page (placeholder)
+- /content → Content page (placeholder)
+- /analytics → Analytics page (placeholder)
 
 **Previous Session Changes:**
-- Changed "Export Hero Metrics" button to "Export Chart" 
+- Changed "Export Hero Metrics" button to "Export"
+- Changed CTA button on flip card backs to "View Performance"
+- Changed CPM metric to Target Coverage (64%) on Brand Awareness Campaign
+- Changed -2.1% to +2.1% on Content Watch Time metric
+- Removed Key Roles Engaged section from tactical flip card backs
+- Added whitespace-nowrap to prevent label wrapping on flip cards
 - Added context text: "Totals shown are all-time; trend indicators show month-on-month change."
 - Restyled sidebar: white background, orange accent for active items (#FFF7F0), slim left border
-- Added "View Campaign Details" CTA on flip card backs with navigation to individual campaign dashboards
 - Fixed Wouter v3+ hydration bug: removed nested anchor tags in Link components
 - Uses useRoute hook from wouter for route parameter extraction
 

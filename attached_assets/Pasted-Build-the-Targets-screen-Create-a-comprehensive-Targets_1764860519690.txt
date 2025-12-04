@@ -1,0 +1,62 @@
+Build the Targets screen
+“Create a comprehensive Targets page with a data table and expandable drawer.
+Page Layout:
+Top Section:
+	•	Page title: ‘Targets’
+	•	Search bar (search by company name)
+	•	Filter dropdowns: Status (All/Active/Inactive), Last Activity (date range)
+	•	‘Add Target’ button (top right, primary CTA style)
+Data Table:
+	•	Columns: Logo (small circular image), Company Name, Status (badge showing Active/Inactive), Last Activity (date format), Arrow button (→ to open drawer)
+	•	Table rows should have hover state
+	•	Responsive and sortable columns
+	•	Professional B2B data table styling
+Right-Side Drawer (slides in from right, ~40-50% width):
+Drawer Header:
+	•	Company logo and name
+	•	Status badge
+	•	Last Activity timestamp
+	•	X button to close drawer
+Drawer Content - Tabbed Interface:
+Tabs: Overview | Key Roles | Activity | Campaigns
+Overview Tab:
+	•	Quick summary section with key metrics
+	•	Recent activity snapshot (last 3-5 items)
+	•	Quick links to other tabs
+Key Roles Tab:
+	•	List of job titles/roles to target
+	•	Each role as a card or list item with edit/delete icons
+	•	‘+ Add Role’ button at top
+	•	Ability to add new role (opens inline form or small modal with job title field)
+Activity Tab:
+	•	‘+ Add Activity’ button at top of feed
+	•	Clicking opens a modal/form with fields:
+	•	Activity Type (dropdown: Meeting, Call, Email, Demo, Event, Note, Other)
+	•	Date & Time (date-time picker)
+	•	Description/Notes (text area)
+	•	Related Campaign (optional dropdown)
+	•	Related Key Role (optional dropdown)
+	•	Chronological activity feed showing both:
+	•	Automated platform activities (from campaigns)
+	•	Manual entries (added by user)
+	•	Visual distinction between manual and automated entries (use icon or tag like ‘Manual Entry’)
+	•	Manual entries should have edit/delete options
+	•	Filter options above feed: All Activity | Platform Activity | Manual Activity
+	•	Each activity item shows: timestamp, activity type/icon, description, related campaign (if any)
+Campaigns Tab:
+	•	List of campaigns related to this target
+	•	Each campaign shown as a card with: campaign name, status, key metrics
+	•	‘View Dashboard’ link/button that navigates to Analytics section
+	•	If no related campaigns: empty state with message
+Interaction Requirements:
+	•	Smooth slide-in/out animation for drawer
+	•	Close drawer by clicking X or clicking outside drawer
+	•	Drawer should overlay the table (not push it)
+	•	Tabs should switch content smoothly without closing drawer
+	•	All forms should have proper validation and cancel/save buttons
+Styling:
+	•	Modern B2B aesthetic with clean, professional design
+	•	Use consistent color scheme throughout
+	•	Proper spacing and typography hierarchy
+	•	Subtle shadows and borders for depth
+	•	Mobile-responsive (drawer becomes full-width on mobile)”
