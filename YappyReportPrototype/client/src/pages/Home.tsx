@@ -65,7 +65,7 @@ export default function Home() {
       ["Active Targets", "28", "+3"],
       ["Roles Reached", "840", "+15%"],
       ["Key Roles Engaged", "124", "+8"],
-      ["Content Watch Time (hrs)", "342", "-2.1%"]
+      ["Content Watch Time (hrs)", "342", "+2.1%"]
     ];
     
     const csvContent = "data:text/csv;charset=utf-8," 
@@ -203,7 +203,7 @@ export default function Home() {
             <MetricCard 
               title="Content Watch Time" 
               value="342h" 
-              trend={{ direction: "down", label: "-2.1%" }}
+              trend={{ direction: "up", label: "+2.1%" }}
             />
           </div>
         </div>
