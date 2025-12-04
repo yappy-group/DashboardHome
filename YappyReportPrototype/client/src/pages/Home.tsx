@@ -101,7 +101,7 @@ export default function Home() {
   );
 
   // Helper for Tactical Back Content
-  const TacticalBackContent = ({ content, keyRoles }: { content: any[], keyRoles?: { group: string; level: "High" | "Medium" | "Low" }[] }) => (
+  const TacticalBackContent = ({ content }: { content: any[] }) => (
     <div className="p-6 space-y-6">
       {/* Content Pieces */}
       <div>
@@ -121,27 +121,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
-      {/* Key Roles Engaged */}
-      {keyRoles && (
-        <div>
-          <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">Key Roles Engaged</h4>
-          <div className="space-y-3">
-            {keyRoles.map((role, i) => (
-              <div key={i} className="flex items-center justify-between">
-                <span className="text-sm text-gray-700 truncate max-w-[180px]">{role.group}</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-500">{role.level}</span>
-                  <div className={`h-2 w-12 rounded-full ${
-                    role.level === 'High' ? 'bg-emerald-500' : 
-                    role.level === 'Medium' ? 'bg-yellow-400' : 'bg-gray-300'
-                  }`} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 
@@ -248,11 +227,6 @@ export default function Home() {
                   { title: "Sustainability Report", absorption: "High" },
                   { title: "Q3 Technical Brief", absorption: "Med" },
                 ]}
-                keyRoles={[
-                  { group: "Operations", level: "High" },
-                  { group: "Finance", level: "Medium" },
-                  { group: "Technology", level: "Low" }
-                ]}
               />
             }
           />
@@ -275,10 +249,6 @@ export default function Home() {
                   { title: "Safety Protocols", absorption: "Med" },
                   { title: "Automation Overview", absorption: "Low" },
                 ]}
-                keyRoles={[
-                  { group: "Procurement", level: "High" },
-                  { group: "Site Management", level: "Medium" },
-                ]}
               />
             }
           />
@@ -300,10 +270,6 @@ export default function Home() {
                   { title: "Intro Deck", absorption: "Med" },
                   { title: "Rail Efficiency Whitepaper", absorption: "Low" },
                   { title: "Case Studies 2024", absorption: "Low" },
-                ]}
-                keyRoles={[
-                  { group: "Logistics", level: "Low" },
-                  { group: "Strategy", level: "Low" },
                 ]}
               />
             }
