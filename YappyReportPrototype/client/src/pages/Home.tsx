@@ -225,7 +225,7 @@ export default function Home() {
             status="Active"
             metrics={[
               { label: "Impressions", value: "2.4M" },
-              { label: "CPM", value: "$12.50" }
+              { label: "Target Coverage", value: "64%" }
             ]}
             backContent={alwaysOnBackContent}
           />
