@@ -53,6 +53,41 @@ interface NavItemProps {
 }
 
 function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen, isCollapsed }: NavItemProps) {
+  if (hasSubItems) {
+    return (
+      <button 
+        onClick={onClick}
+        className={cn(
+          "w-full flex items-center justify-between transition-all relative group rounded-lg",
+          isCollapsed 
+            ? "px-3 py-2.5 mx-1.5"
+            : "px-4 py-2.5 text-sm font-medium mx-3",
+          active 
+            ? "text-primary bg-[#FFF7F0] font-semibold border-l-[3px] border-primary" 
+            : "text-gray-600 hover:bg-[#F5F5F5] border-l-[3px] border-transparent"
+        )}
+      >
+        <div className="flex items-center gap-3">
+          {icon && (
+            <span className={cn("transition-colors flex-shrink-0", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
+              {icon}
+            </span>
+          )}
+          {!isCollapsed && <span className="whitespace-nowrap">{label}</span>}
+        </div>
+        {!isCollapsed && (
+          <div className="p-1 hover:bg-black/5 rounded transition-transform">
+            {isOpen ? (
+              <ChevronDown className="h-4 w-4 text-gray-400" />
+            ) : (
+              <ChevronRight className="h-4 w-4 text-gray-400" />
+            )}
+          </div>
+        )}
+      </button>
+    );
+  }
+
   return (
     <Link href={href} className={cn(
       "flex items-center justify-between transition-all relative group rounded-lg",
@@ -71,15 +106,6 @@ function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen, isCo
         )}
         {!isCollapsed && <span className="whitespace-nowrap">{label}</span>}
       </div>
-      {!isCollapsed && hasSubItems && (
-        <div onClick={(e) => { e.preventDefault(); onClick?.(); }} className="cursor-pointer p-1 hover:bg-black/5 rounded">
-          {isOpen ? (
-            <ChevronDown className="h-4 w-4 text-gray-400" />
-          ) : (
-            <ChevronRight className="h-4 w-4 text-gray-400" />
-          )}
-        </div>
-      )}
     </Link>
   );
 }
