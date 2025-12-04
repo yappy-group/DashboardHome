@@ -10,31 +10,29 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (December 4, 2025)
 
-**Navigation Structure (Final):**
-- **Main Sections**: Home (Dashboard), Targets, Campaigns, Content, Analytics
-- **Each expandable section has submenu items**:
-  - Targets: All Targets, Target Lists
-  - Campaigns: All Campaigns, Campaign Builder
-  - Content: Content Library, Upload/Create
-  - Analytics: Campaign Performance, Target Analytics, Content Performance
-- Implemented collapsible sidebar - shows only icons by default (80px), expands to full menu (256px)
-- Click any icon to expand/collapse entire sidebar
-- Click main section headers to expand/collapse submenu items
-- Smooth animations with rotating chevron icons showing expand/collapse state
-- Semi-transparent overlay when sidebar is expanded; close button (X) to collapse
-- Sub-navigation items only visible when sidebar is expanded
+**Navigation Structure (Simplified):**
+- **Top-level navigation items only** (no submenus):
+  - Home → Dashboard with hero metrics & campaign cards
+  - Targets → All targets page
+  - Campaigns → All campaigns page
+  - Content → Content management page
+  - Analytics → Analytics dashboard
+- Collapsible sidebar - shows only icons by default (80px), expands to show full menu with labels (256px)
+- Click any icon when collapsed to expand the sidebar
+- Each item navigates directly to its main page when clicked
+- Smooth transitions with semi-transparent overlay when expanded
+- Close button (X) or click outside to collapse sidebar
+- Active page highlighted in orange with light background
+- Clean B2B professional styling with Yappy brand colors
 
 **Routing & Pages:**
-- /dashboard → Dashboard (home with hero metrics & campaigns)
-- /targets → All Targets
-- /targets/lists → Target Lists
-- /campaigns → All Campaigns
-- /campaigns/builder → Campaign Builder
-- /content/library → Content Library
-- /content/upload → Upload/Create
-- /analytics/campaigns → Campaign Performance
-- /analytics/targets → Target Analytics
-- /analytics/content → Content Performance
+- / → Home (dashboard)
+- /dashboard → Home (dashboard)
+- /targets → Targets page
+- /targets/:id → Individual target dashboard
+- /campaigns → Campaigns page
+- /content → Content page
+- /analytics → Analytics page
 
 **Previous Session Changes:**
 - Changed "Export Hero Metrics" button to "Export Chart" 

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Bell, Search, ChevronDown, ChevronRight, Home, Target, Flag, BookOpen, BarChart3, Menu, X } from "lucide-react";
+import { Bell, Search, Home, Target, Flag, BookOpen, BarChart3, X } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { useState, type ReactNode } from "react";
@@ -44,125 +44,26 @@ export function TopNav() {
 interface NavItemProps {
   href: string;
   label: string;
-  icon?: ReactNode;
+  icon: ReactNode;
   active?: boolean;
-  hasSubItems?: boolean;
-  onClick?: () => void;
-  isOpen?: boolean;
   isCollapsed?: boolean;
 }
 
-interface NavItemExtendedProps extends NavItemProps {
-  onExpandSidebar?: () => void;
-}
-
-function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen, isCollapsed, onExpandSidebar }: NavItemExtendedProps) {
-  const handleClick = () => {
-    if (isCollapsed && onExpandSidebar) {
-      onExpandSidebar();
-      if (hasSubItems && onClick) {
-        onClick();
-      }
-    } else if (hasSubItems && onClick) {
-      onClick();
-    }
-  };
-
-  if (hasSubItems) {
-    return (
-      <div 
-        onClick={handleClick}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && handleClick()}
-        className={cn(
-          "flex items-center justify-between transition-all relative group rounded-lg cursor-pointer select-none",
-          isCollapsed 
-            ? "px-3 py-2.5 mx-1.5"
-            : "px-4 py-2.5 text-sm font-medium mx-3",
-          active 
-            ? "text-primary bg-[#FFF7F0] font-semibold border-l-[3px] border-primary" 
-            : "text-gray-600 hover:bg-[#F5F5F5] border-l-[3px] border-transparent"
-        )}
-      >
-        <div className="flex items-center gap-3">
-          {icon && (
-            <span className={cn("transition-colors flex-shrink-0", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
-              {icon}
-            </span>
-          )}
-          {!isCollapsed && <span className="whitespace-nowrap">{label}</span>}
-        </div>
-        {!isCollapsed && (
-          <div className="p-1 hover:bg-black/5 rounded transition-transform">
-            {isOpen ? (
-              <ChevronDown className="h-4 w-4 text-gray-400" />
-            ) : (
-              <ChevronRight className="h-4 w-4 text-gray-400" />
-            )}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  if (isCollapsed && onExpandSidebar) {
-    return (
-      <div 
-        onClick={onExpandSidebar}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && onExpandSidebar()}
-        className={cn(
-          "flex items-center justify-between transition-all relative group rounded-lg cursor-pointer select-none",
-          "px-3 py-2.5 mx-1.5",
-          active 
-            ? "text-primary bg-[#FFF7F0] font-semibold border-l-[3px] border-primary" 
-            : "text-gray-600 hover:bg-[#F5F5F5] border-l-[3px] border-transparent"
-        )}
-      >
-        <div className="flex items-center gap-3">
-          {icon && (
-            <span className={cn("transition-colors flex-shrink-0", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
-              {icon}
-            </span>
-          )}
-        </div>
-      </div>
-    );
-  }
-
+function NavItem({ href, label, icon, active, isCollapsed }: NavItemProps) {
   return (
     <Link href={href} className={cn(
-      "flex items-center justify-between transition-all relative group rounded-lg cursor-pointer",
+      "flex items-center gap-3 transition-all relative group rounded-lg",
       isCollapsed 
-        ? "px-3 py-2.5 mx-1.5"
+        ? "px-3 py-2.5 mx-1.5 justify-center"
         : "px-4 py-2.5 text-sm font-medium mx-3",
       active 
         ? "text-primary bg-[#FFF7F0] font-semibold border-l-[3px] border-primary" 
         : "text-gray-600 hover:bg-[#F5F5F5] border-l-[3px] border-transparent"
     )}>
-      <div className="flex items-center gap-3">
-        {icon && (
-          <span className={cn("transition-colors flex-shrink-0", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
-            {icon}
-          </span>
-        )}
-        {!isCollapsed && <span className="whitespace-nowrap">{label}</span>}
-      </div>
-    </Link>
-  );
-}
-
-function SubNavItem({ href, label, active }: { href: string, label: string, active?: boolean }) {
-  return (
-    <Link href={href} className={cn(
-      "block py-2 pl-11 pr-4 text-[13px] transition-colors ml-6 mr-3 rounded-md",
-      active 
-        ? "text-primary font-medium bg-[#FFF7F0]" 
-        : "text-gray-500 hover:text-gray-700 hover:bg-[#F5F5F5]"
-    )}>
-      {label}
+      <span className={cn("transition-colors flex-shrink-0", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
+        {icon}
+      </span>
+      {!isCollapsed && <span className="whitespace-nowrap">{label}</span>}
     </Link>
   );
 }
@@ -170,12 +71,21 @@ function SubNavItem({ href, label, active }: { href: string, label: string, acti
 export function Sidebar() {
   const [location] = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [targetsOpen, setTargetsOpen] = useState(false);
-  const [campaignsOpen, setCampaignsOpen] = useState(false);
-  const [contentOpen, setContentOpen] = useState(false);
-  const [analyticsOpen, setAnalyticsOpen] = useState(false);
 
-  const expandSidebar = () => setIsExpanded(true);
+  const navItems = [
+    { href: "/", label: "Home", icon: <Home className="w-4 h-4" /> },
+    { href: "/targets", label: "Targets", icon: <Target className="w-4 h-4" /> },
+    { href: "/campaigns", label: "Campaigns", icon: <Flag className="w-4 h-4" /> },
+    { href: "/content", label: "Content", icon: <BookOpen className="w-4 h-4" /> },
+    { href: "/analytics", label: "Analytics", icon: <BarChart3 className="w-4 h-4" /> },
+  ];
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return location === "/" || location === "/dashboard";
+    }
+    return location.startsWith(href);
+  };
 
   return (
     <>
@@ -190,9 +100,7 @@ export function Sidebar() {
       {/* Sidebar */}
       <aside className={cn(
         "bg-white border-r border-gray-100 fixed top-16 bottom-0 left-0 z-40 overflow-y-auto py-4 transition-all duration-300 ease-out",
-        isExpanded 
-          ? "w-64" 
-          : "w-20"
+        isExpanded ? "w-64" : "w-20"
       )}>
         {/* Close button when expanded */}
         {isExpanded && (
@@ -205,132 +113,28 @@ export function Sidebar() {
           </button>
         )}
 
-        <nav className={cn("space-y-0.5", isExpanded ? "mt-0" : "mt-2")}>
-          <NavItem 
-            href="/dashboard" 
-            label="Dashboard" 
-            icon={<Home className="w-4 h-4" />}
-            active={location === "/" || location === "/dashboard"} 
-            isCollapsed={!isExpanded}
-            onExpandSidebar={expandSidebar}
-          />
-          
-          <div className={isExpanded ? "mt-4" : "mt-6"}>
-            <NavItem 
-              href="/targets" 
-              label="Targets" 
-              icon={<Target className="w-4 h-4" />}
-              active={location.startsWith("/targets")}
-              hasSubItems
-              isOpen={targetsOpen}
-              onClick={() => setTargetsOpen(!targetsOpen)}
-              isCollapsed={!isExpanded}
-              onExpandSidebar={expandSidebar}
-            />
-            {isExpanded && targetsOpen && (
-              <div className="mt-1 space-y-0.5 pb-1">
-                <SubNavItem 
-                  href="/targets" 
-                  label="All Targets" 
-                  active={location === "/targets"}
-                />
-                <SubNavItem 
-                  href="/targets/lists" 
-                  label="Target Lists" 
-                  active={location === "/targets/lists"}
-                />
-              </div>
-            )}
-          </div>
+        {/* Toggle button - click any icon when collapsed to expand */}
+        {!isExpanded && (
+          <button 
+            onClick={() => setIsExpanded(true)}
+            className="w-full text-center mb-4"
+            aria-label="Expand menu"
+          >
+            <div className="text-gray-400 text-xs" />
+          </button>
+        )}
 
-          <div className={isExpanded ? "mt-4" : "mt-6"}>
-            <NavItem 
-              href="/campaigns" 
-              label="Campaigns" 
-              icon={<Flag className="w-4 h-4" />}
-              active={location.startsWith("/campaigns")}
-              hasSubItems
-              isOpen={campaignsOpen}
-              onClick={() => setCampaignsOpen(!campaignsOpen)}
+        <nav className="space-y-0.5">
+          {navItems.map((item) => (
+            <NavItem
+              key={item.href}
+              href={item.href}
+              label={item.label}
+              icon={item.icon}
+              active={isActive(item.href)}
               isCollapsed={!isExpanded}
-              onExpandSidebar={expandSidebar}
             />
-            {isExpanded && campaignsOpen && (
-              <div className="mt-1 space-y-0.5 pb-1">
-                <SubNavItem 
-                  href="/campaigns" 
-                  label="All Campaigns" 
-                  active={location === "/campaigns"}
-                />
-                <SubNavItem 
-                  href="/campaigns/builder" 
-                  label="Campaign Builder" 
-                  active={location === "/campaigns/builder"}
-                />
-              </div>
-            )}
-          </div>
-
-          <div className={isExpanded ? "mt-4" : "mt-6"}>
-            <NavItem 
-              href="/content" 
-              label="Content" 
-              icon={<BookOpen className="w-4 h-4" />}
-              active={location.startsWith("/content")}
-              hasSubItems
-              isOpen={contentOpen}
-              onClick={() => setContentOpen(!contentOpen)}
-              isCollapsed={!isExpanded}
-              onExpandSidebar={expandSidebar}
-            />
-            {isExpanded && contentOpen && (
-              <div className="mt-1 space-y-0.5 pb-1">
-                <SubNavItem 
-                  href="/content/library" 
-                  label="Content Library" 
-                  active={location === "/content/library"}
-                />
-                <SubNavItem 
-                  href="/content/upload" 
-                  label="Upload/Create" 
-                  active={location === "/content/upload"}
-                />
-              </div>
-            )}
-          </div>
-
-          <div className={isExpanded ? "mt-4" : "mt-6"}>
-            <NavItem 
-              href="/analytics" 
-              label="Analytics" 
-              icon={<BarChart3 className="w-4 h-4" />}
-              active={location.startsWith("/analytics")}
-              hasSubItems
-              isOpen={analyticsOpen}
-              onClick={() => setAnalyticsOpen(!analyticsOpen)}
-              isCollapsed={!isExpanded}
-              onExpandSidebar={expandSidebar}
-            />
-            {isExpanded && analyticsOpen && (
-              <div className="mt-1 space-y-0.5 pb-1">
-                <SubNavItem 
-                  href="/analytics/campaigns" 
-                  label="Campaign Performance" 
-                  active={location === "/analytics/campaigns"}
-                />
-                <SubNavItem 
-                  href="/analytics/targets" 
-                  label="Target Analytics" 
-                  active={location === "/analytics/targets"}
-                />
-                <SubNavItem 
-                  href="/analytics/content" 
-                  label="Content Performance" 
-                  active={location === "/analytics/content"}
-                />
-              </div>
-            )}
-          </div>
+          ))}
         </nav>
       </aside>
     </>
