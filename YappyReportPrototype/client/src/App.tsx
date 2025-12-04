@@ -30,33 +30,42 @@ function Router() {
     <Layout>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/dashboard" component={Home} />
         
         {/* Targets Routes */}
         <Route path="/targets">
            <Placeholder title="All Targets" />
         </Route>
+        <Route path="/targets/lists">
+           <Placeholder title="Target Lists" />
+        </Route>
         <Route path="/targets/:id" component={TargetDashboardRoute} />
         
         {/* Campaigns Routes */}
         <Route path="/campaigns">
-           <Placeholder title="Campaigns Home" />
+           <Placeholder title="All Campaigns" />
         </Route>
-        <Route path="/campaigns/always-on">
-           <Placeholder title="Always On Campaigns" />
-        </Route>
-        <Route path="/campaigns/tactical">
-           <Placeholder title="Tactical Campaigns" />
+        <Route path="/campaigns/builder">
+           <Placeholder title="Campaign Builder" />
         </Route>
         
-        {/* Creative Routes */}
-        <Route path="/creative/library">
+        {/* Content Routes */}
+        <Route path="/content/library">
            <Placeholder title="Content Library" />
         </Route>
-        <Route path="/creative/messaging">
-           <Placeholder title="Messaging Strategy" />
+        <Route path="/content/upload">
+           <Placeholder title="Upload/Create" />
         </Route>
-        <Route path="/creative/add">
-           <Placeholder title="Add Content" />
+        
+        {/* Analytics Routes */}
+        <Route path="/analytics/campaigns">
+           <Placeholder title="Campaign Performance" />
+        </Route>
+        <Route path="/analytics/targets">
+           <Placeholder title="Target Analytics" />
+        </Route>
+        <Route path="/analytics/content">
+           <Placeholder title="Content Performance" />
         </Route>
         
         {/* Fallback */}

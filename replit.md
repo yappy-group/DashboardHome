@@ -10,22 +10,31 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (December 4, 2025)
 
-**Navigation Restructure:**
-- Updated left sidebar with new information architecture: Home, Targets, Campaigns, Creative
-- Implemented collapsible sidebar - shows only icons by default (80px), expands to full menu (256px) on click
-- Smooth slide-out animation with semi-transparent overlay when expanded
-- Close button (X) and click-outside to collapse the sidebar
+**Navigation Structure (Final):**
+- **Main Sections**: Home (Dashboard), Targets, Campaigns, Content, Analytics
+- **Each expandable section has submenu items**:
+  - Targets: All Targets, Target Lists
+  - Campaigns: All Campaigns, Campaign Builder
+  - Content: Content Library, Upload/Create
+  - Analytics: Campaign Performance, Target Analytics, Content Performance
+- Implemented collapsible sidebar - shows only icons by default (80px), expands to full menu (256px)
+- Click any icon to expand/collapse entire sidebar
+- Click main section headers to expand/collapse submenu items
+- Smooth animations with rotating chevron icons showing expand/collapse state
+- Semi-transparent overlay when sidebar is expanded; close button (X) to collapse
 - Sub-navigation items only visible when sidebar is expanded
 
 **Routing & Pages:**
-- /targets → All Targets page (placeholder)
-- /targets/:id → Target Dashboard with sections for metadata, hero metrics, activity feed, tactical/always-on performance
-- /campaigns → Campaigns Home (placeholder)
-- /campaigns/always-on → Always On Campaigns list
-- /campaigns/tactical → Tactical Campaigns list (links to target dashboards per requirements)
-- /creative/library → Content Library (placeholder)
-- /creative/messaging → Messaging Strategy (placeholder)
-- /creative/add → Add Content form stub
+- /dashboard → Dashboard (home with hero metrics & campaigns)
+- /targets → All Targets
+- /targets/lists → Target Lists
+- /campaigns → All Campaigns
+- /campaigns/builder → Campaign Builder
+- /content/library → Content Library
+- /content/upload → Upload/Create
+- /analytics/campaigns → Campaign Performance
+- /analytics/targets → Target Analytics
+- /analytics/content → Content Performance
 
 **Previous Session Changes:**
 - Changed "Export Hero Metrics" button to "Export Chart" 

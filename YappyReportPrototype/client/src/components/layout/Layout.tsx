@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Bell, Search, ChevronDown, ChevronRight, Home, Target, Flag, Palette, Menu, X } from "lucide-react";
+import { Bell, Search, ChevronDown, ChevronRight, Home, Target, Flag, BookOpen, BarChart3, Menu, X } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { useState, type ReactNode } from "react";
@@ -102,7 +102,8 @@ export function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [targetsOpen, setTargetsOpen] = useState(false);
   const [campaignsOpen, setCampaignsOpen] = useState(false);
-  const [creativeOpen, setCreativeOpen] = useState(false);
+  const [contentOpen, setContentOpen] = useState(false);
+  const [analyticsOpen, setAnalyticsOpen] = useState(false);
 
   return (
     <>
@@ -145,10 +146,10 @@ export function Sidebar() {
 
         <nav className={cn("space-y-0.5", isExpanded ? "mt-0" : "mt-2")}>
           <NavItem 
-            href="/" 
-            label="Home" 
+            href="/dashboard" 
+            label="Dashboard" 
             icon={<Home className="w-4 h-4" />}
-            active={location === "/"} 
+            active={location === "/dashboard"} 
             isCollapsed={!isExpanded}
           />
           
@@ -171,9 +172,9 @@ export function Sidebar() {
                   active={location === "/targets"}
                 />
                 <SubNavItem 
-                  href="/targets/1" 
-                  label="Target Dashboard" 
-                  active={location.startsWith("/targets/") && location !== "/targets"}
+                  href="/targets/lists" 
+                  label="Target Lists" 
+                  active={location === "/targets/lists"}
                 />
               </div>
             )}
@@ -194,18 +195,13 @@ export function Sidebar() {
               <div className="mt-1 space-y-0.5 pb-1">
                 <SubNavItem 
                   href="/campaigns" 
-                  label="Campaigns Home" 
+                  label="All Campaigns" 
                   active={location === "/campaigns"}
                 />
                 <SubNavItem 
-                  href="/campaigns/always-on" 
-                  label="Always On Campaigns" 
-                  active={location === "/campaigns/always-on"}
-                />
-                <SubNavItem 
-                  href="/campaigns/tactical" 
-                  label="Tactical Campaigns" 
-                  active={location === "/campaigns/tactical"}
+                  href="/campaigns/builder" 
+                  label="Campaign Builder" 
+                  active={location === "/campaigns/builder"}
                 />
               </div>
             )}
@@ -213,31 +209,58 @@ export function Sidebar() {
 
           <div className={isExpanded ? "mt-4" : "mt-6"}>
             <NavItem 
-              href="/creative" 
-              label="Creative" 
-              icon={<Palette className="w-4 h-4" />}
-              active={location.startsWith("/creative")}
+              href="/content" 
+              label="Content" 
+              icon={<BookOpen className="w-4 h-4" />}
+              active={location.startsWith("/content")}
               hasSubItems
-              isOpen={creativeOpen}
-              onClick={() => setCreativeOpen(!creativeOpen)}
+              isOpen={contentOpen}
+              onClick={() => setContentOpen(!contentOpen)}
               isCollapsed={!isExpanded}
             />
-            {isExpanded && creativeOpen && (
+            {isExpanded && contentOpen && (
               <div className="mt-1 space-y-0.5 pb-1">
                 <SubNavItem 
-                  href="/creative/library" 
+                  href="/content/library" 
                   label="Content Library" 
-                  active={location === "/creative/library"}
+                  active={location === "/content/library"}
                 />
                 <SubNavItem 
-                  href="/creative/messaging" 
-                  label="Messaging Strategy" 
-                  active={location === "/creative/messaging"}
+                  href="/content/upload" 
+                  label="Upload/Create" 
+                  active={location === "/content/upload"}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className={isExpanded ? "mt-4" : "mt-6"}>
+            <NavItem 
+              href="/analytics" 
+              label="Analytics" 
+              icon={<BarChart3 className="w-4 h-4" />}
+              active={location.startsWith("/analytics")}
+              hasSubItems
+              isOpen={analyticsOpen}
+              onClick={() => setAnalyticsOpen(!analyticsOpen)}
+              isCollapsed={!isExpanded}
+            />
+            {isExpanded && analyticsOpen && (
+              <div className="mt-1 space-y-0.5 pb-1">
+                <SubNavItem 
+                  href="/analytics/campaigns" 
+                  label="Campaign Performance" 
+                  active={location === "/analytics/campaigns"}
                 />
                 <SubNavItem 
-                  href="/creative/add" 
-                  label="Add Content" 
-                  active={location === "/creative/add"}
+                  href="/analytics/targets" 
+                  label="Target Analytics" 
+                  active={location === "/analytics/targets"}
+                />
+                <SubNavItem 
+                  href="/analytics/content" 
+                  label="Content Performance" 
+                  active={location === "/analytics/content"}
                 />
               </div>
             )}
