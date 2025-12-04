@@ -100,7 +100,7 @@ export function CampaignCard({ id, title, type, image, status, metrics, backCont
                 size="sm" 
                 className="gap-2 bg-primary hover:bg-primary/90 text-white"
               >
-                View Campaign Details
+                View Performance
                 <ExternalLink className="w-3.5 h-3.5" />
               </Button>
             </Link>
