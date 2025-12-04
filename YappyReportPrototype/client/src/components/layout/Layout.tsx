@@ -52,13 +52,31 @@ interface NavItemProps {
   isCollapsed?: boolean;
 }
 
-function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen, isCollapsed }: NavItemProps) {
+interface NavItemExtendedProps extends NavItemProps {
+  onExpandSidebar?: () => void;
+}
+
+function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen, isCollapsed, onExpandSidebar }: NavItemExtendedProps) {
+  const handleClick = () => {
+    if (isCollapsed && onExpandSidebar) {
+      onExpandSidebar();
+      if (hasSubItems && onClick) {
+        onClick();
+      }
+    } else if (hasSubItems && onClick) {
+      onClick();
+    }
+  };
+
   if (hasSubItems) {
     return (
       <div 
-        onClick={onClick}
+        onClick={handleClick}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => e.key === 'Enter' && handleClick()}
         className={cn(
-          "flex items-center justify-between transition-all relative group rounded-lg cursor-pointer",
+          "flex items-center justify-between transition-all relative group rounded-lg cursor-pointer select-none",
           isCollapsed 
             ? "px-3 py-2.5 mx-1.5"
             : "px-4 py-2.5 text-sm font-medium mx-3",
@@ -88,9 +106,35 @@ function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen, isCo
     );
   }
 
+  if (isCollapsed && onExpandSidebar) {
+    return (
+      <div 
+        onClick={onExpandSidebar}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => e.key === 'Enter' && onExpandSidebar()}
+        className={cn(
+          "flex items-center justify-between transition-all relative group rounded-lg cursor-pointer select-none",
+          "px-3 py-2.5 mx-1.5",
+          active 
+            ? "text-primary bg-[#FFF7F0] font-semibold border-l-[3px] border-primary" 
+            : "text-gray-600 hover:bg-[#F5F5F5] border-l-[3px] border-transparent"
+        )}
+      >
+        <div className="flex items-center gap-3">
+          {icon && (
+            <span className={cn("transition-colors flex-shrink-0", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
+              {icon}
+            </span>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Link href={href} className={cn(
-      "flex items-center justify-between transition-all relative group rounded-lg",
+      "flex items-center justify-between transition-all relative group rounded-lg cursor-pointer",
       isCollapsed 
         ? "px-3 py-2.5 mx-1.5"
         : "px-4 py-2.5 text-sm font-medium mx-3",
@@ -131,19 +175,10 @@ export function Sidebar() {
   const [contentOpen, setContentOpen] = useState(false);
   const [analyticsOpen, setAnalyticsOpen] = useState(false);
 
+  const expandSidebar = () => setIsExpanded(true);
+
   return (
     <>
-      {/* Toggle Button for collapsed state */}
-      {!isExpanded && (
-        <button 
-          onClick={() => setIsExpanded(true)}
-          className="fixed top-20 left-3 z-35 p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          aria-label="Expand menu"
-        >
-          <Menu className="w-5 h-5 text-gray-600" />
-        </button>
-      )}
-
       {/* Overlay when expanded */}
       {isExpanded && (
         <div 
@@ -175,8 +210,9 @@ export function Sidebar() {
             href="/dashboard" 
             label="Dashboard" 
             icon={<Home className="w-4 h-4" />}
-            active={location === "/dashboard"} 
+            active={location === "/" || location === "/dashboard"} 
             isCollapsed={!isExpanded}
+            onExpandSidebar={expandSidebar}
           />
           
           <div className={isExpanded ? "mt-4" : "mt-6"}>
@@ -189,6 +225,7 @@ export function Sidebar() {
               isOpen={targetsOpen}
               onClick={() => setTargetsOpen(!targetsOpen)}
               isCollapsed={!isExpanded}
+              onExpandSidebar={expandSidebar}
             />
             {isExpanded && targetsOpen && (
               <div className="mt-1 space-y-0.5 pb-1">
@@ -216,6 +253,7 @@ export function Sidebar() {
               isOpen={campaignsOpen}
               onClick={() => setCampaignsOpen(!campaignsOpen)}
               isCollapsed={!isExpanded}
+              onExpandSidebar={expandSidebar}
             />
             {isExpanded && campaignsOpen && (
               <div className="mt-1 space-y-0.5 pb-1">
@@ -243,6 +281,7 @@ export function Sidebar() {
               isOpen={contentOpen}
               onClick={() => setContentOpen(!contentOpen)}
               isCollapsed={!isExpanded}
+              onExpandSidebar={expandSidebar}
             />
             {isExpanded && contentOpen && (
               <div className="mt-1 space-y-0.5 pb-1">
@@ -270,6 +309,7 @@ export function Sidebar() {
               isOpen={analyticsOpen}
               onClick={() => setAnalyticsOpen(!analyticsOpen)}
               isCollapsed={!isExpanded}
+              onExpandSidebar={expandSidebar}
             />
             {isExpanded && analyticsOpen && (
               <div className="mt-1 space-y-0.5 pb-1">
