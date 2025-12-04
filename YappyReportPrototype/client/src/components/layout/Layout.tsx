@@ -55,10 +55,10 @@ interface NavItemProps {
 function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen, isCollapsed }: NavItemProps) {
   if (hasSubItems) {
     return (
-      <button 
+      <div 
         onClick={onClick}
         className={cn(
-          "w-full flex items-center justify-between transition-all relative group rounded-lg",
+          "flex items-center justify-between transition-all relative group rounded-lg cursor-pointer",
           isCollapsed 
             ? "px-3 py-2.5 mx-1.5"
             : "px-4 py-2.5 text-sm font-medium mx-3",
@@ -84,7 +84,7 @@ function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen, isCo
             )}
           </div>
         )}
-      </button>
+      </div>
     );
   }
 
