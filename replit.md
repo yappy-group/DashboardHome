@@ -18,10 +18,10 @@ Preferred communication style: Simple, everyday language.
   - Content → Content management page
   - Analytics → Analytics dashboard
 - Collapsible sidebar - shows only icons by default (80px), expands to show full menu with labels (256px)
-- Click any icon when collapsed to expand the sidebar
+- Hover over sidebar to expand and reveal labels
+- Click anywhere on sidebar (or outside) to collapse it back
 - Each item navigates directly to its main page when clicked
 - Smooth transitions with semi-transparent overlay when expanded
-- Close button (X) or click outside to collapse sidebar
 - Active page highlighted in orange with light background
 - Clean B2B professional styling with Yappy brand colors
 

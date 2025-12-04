@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Bell, Search, Home, Target, Flag, BookOpen, BarChart3, X } from "lucide-react";
+import { Bell, Search, Home, Target, Flag, BookOpen, BarChart3 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { useState, type ReactNode } from "react";
@@ -87,44 +87,30 @@ export function Sidebar() {
     return location.startsWith(href);
   };
 
+  const handleCollapse = () => {
+    setIsExpanded(false);
+  };
+
   return (
     <>
-      {/* Overlay when expanded */}
+      {/* Overlay when expanded - click to collapse */}
       {isExpanded && (
         <div 
-          className="fixed inset-0 bg-black/20 z-30 top-16"
-          onClick={() => setIsExpanded(false)}
+          className="fixed inset-0 bg-black/10 z-30 top-16"
+          onClick={handleCollapse}
         />
       )}
 
-      {/* Sidebar */}
-      <aside className={cn(
-        "bg-white border-r border-gray-100 fixed top-16 bottom-0 left-0 z-40 overflow-y-auto py-4 transition-all duration-300 ease-out",
-        isExpanded ? "w-64" : "w-20"
-      )}>
-        {/* Close button when expanded */}
-        {isExpanded && (
-          <button 
-            onClick={() => setIsExpanded(false)}
-            className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-lg transition-colors"
-            aria-label="Collapse menu"
-          >
-            <X className="w-5 h-5 text-gray-600" />
-          </button>
+      {/* Sidebar - expands on hover, collapses on click */}
+      <aside 
+        className={cn(
+          "bg-white border-r border-gray-100 fixed top-16 bottom-0 left-0 z-40 overflow-y-auto py-4 transition-all duration-300 ease-out cursor-pointer",
+          isExpanded ? "w-64" : "w-20"
         )}
-
-        {/* Toggle button - click any icon when collapsed to expand */}
-        {!isExpanded && (
-          <button 
-            onClick={() => setIsExpanded(true)}
-            className="w-full text-center mb-4"
-            aria-label="Expand menu"
-          >
-            <div className="text-gray-400 text-xs" />
-          </button>
-        )}
-
-        <nav className="space-y-0.5">
+        onMouseEnter={() => setIsExpanded(true)}
+        onClick={handleCollapse}
+      >
+        <nav className="space-y-0.5" onClick={(e) => e.stopPropagation()}>
           {navItems.map((item) => (
             <NavItem
               key={item.href}
