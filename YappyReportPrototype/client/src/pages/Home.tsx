@@ -140,7 +140,7 @@ export default function Home() {
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="gap-2 text-xs font-medium h-8" aria-label="Export performance overview chart">
                 <Download className="w-3.5 h-3.5" />
-                Export Chart
+                Export
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
