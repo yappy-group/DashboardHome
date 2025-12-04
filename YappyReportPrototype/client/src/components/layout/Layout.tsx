@@ -47,19 +47,24 @@ interface NavItemProps {
   icon: ReactNode;
   active?: boolean;
   isCollapsed?: boolean;
+  onNavigate?: () => void;
 }
 
-function NavItem({ href, label, icon, active, isCollapsed }: NavItemProps) {
+function NavItem({ href, label, icon, active, isCollapsed, onNavigate }: NavItemProps) {
   return (
-    <Link href={href} className={cn(
-      "flex items-center gap-3 transition-all relative group rounded-lg",
-      isCollapsed 
-        ? "px-3 py-2.5 mx-1.5 justify-center"
-        : "px-4 py-2.5 text-sm font-medium mx-3",
-      active 
-        ? "text-primary bg-[#FFF7F0] font-semibold border-l-[3px] border-primary" 
-        : "text-gray-600 hover:bg-[#F5F5F5] border-l-[3px] border-transparent"
-    )}>
+    <Link 
+      href={href} 
+      onClick={onNavigate}
+      className={cn(
+        "flex items-center gap-3 transition-all relative group rounded-lg",
+        isCollapsed 
+          ? "px-3 py-2.5 mx-1.5 justify-center"
+          : "px-4 py-2.5 text-sm font-medium mx-3",
+        active 
+          ? "text-primary bg-[#FFF7F0] font-semibold border-l-[3px] border-primary" 
+          : "text-gray-600 hover:bg-[#F5F5F5] border-l-[3px] border-transparent"
+      )}
+    >
       <span className={cn("transition-colors flex-shrink-0", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
         {icon}
       </span>
@@ -110,7 +115,7 @@ export function Sidebar() {
         onMouseEnter={() => setIsExpanded(true)}
         onClick={handleCollapse}
       >
-        <nav className="space-y-0.5" onClick={(e) => e.stopPropagation()}>
+        <nav className="space-y-0.5">
           {navItems.map((item) => (
             <NavItem
               key={item.href}
@@ -119,6 +124,7 @@ export function Sidebar() {
               icon={item.icon}
               active={isActive(item.href)}
               isCollapsed={!isExpanded}
+              onNavigate={handleCollapse}
             />
           ))}
         </nav>
