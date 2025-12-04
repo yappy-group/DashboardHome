@@ -8,14 +8,30 @@ Yappy is a B2B marketing campaign performance reporting and analytics applicatio
 
 Preferred communication style: Simple, everyday language.
 
-## Recent Changes (November 28, 2025)
+## Recent Changes (December 4, 2025)
 
+**Navigation Restructure:**
+- Updated left sidebar with new information architecture: Home, Targets, Campaigns, Creative
+- Implemented collapsible sidebar - shows only icons by default (80px), expands to full menu (256px) on click
+- Smooth slide-out animation with semi-transparent overlay when expanded
+- Close button (X) and click-outside to collapse the sidebar
+- Sub-navigation items only visible when sidebar is expanded
+
+**Routing & Pages:**
+- /targets → All Targets page (placeholder)
+- /targets/:id → Target Dashboard with sections for metadata, hero metrics, activity feed, tactical/always-on performance
+- /campaigns → Campaigns Home (placeholder)
+- /campaigns/always-on → Always On Campaigns list
+- /campaigns/tactical → Tactical Campaigns list (links to target dashboards per requirements)
+- /creative/library → Content Library (placeholder)
+- /creative/messaging → Messaging Strategy (placeholder)
+- /creative/add → Add Content form stub
+
+**Previous Session Changes:**
 - Changed "Export Hero Metrics" button to "Export Chart" 
 - Added context text: "Totals shown are all-time; trend indicators show month-on-month change."
 - Restyled sidebar: white background, orange accent for active items (#FFF7F0), slim left border
 - Added "View Campaign Details" CTA on flip card backs with navigation to individual campaign dashboards
-- Created campaign dashboard placeholder page (/campaigns/:id) with "Coming Soon" message
-- Sidebar properly highlights "Campaigns" section when viewing campaign dashboards
 - Fixed Wouter v3+ hydration bug: removed nested anchor tags in Link components
 - Uses useRoute hook from wouter for route parameter extraction
 

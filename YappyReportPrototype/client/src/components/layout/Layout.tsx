@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Bell, Search, ChevronDown, ChevronRight, Home, Target, Flag, Palette } from "lucide-react";
+import { Bell, Search, ChevronDown, ChevronRight, Home, Target, Flag, Palette, Menu, X } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { useState, type ReactNode } from "react";
@@ -9,7 +9,7 @@ export function TopNav() {
   return (
     <header className="h-16 bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6">
       {/* Left: Logo */}
-      <div className="flex items-center w-64">
+      <div className="flex items-center w-20">
         <Link href="/" className="text-2xl font-bold text-primary tracking-tight">Yappy</Link>
       </div>
 
@@ -49,25 +49,29 @@ interface NavItemProps {
   hasSubItems?: boolean;
   onClick?: () => void;
   isOpen?: boolean;
+  isCollapsed?: boolean;
 }
 
-function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen }: NavItemProps) {
+function NavItem({ href, label, icon, active, hasSubItems, onClick, isOpen, isCollapsed }: NavItemProps) {
   return (
     <Link href={href} className={cn(
-      "flex items-center justify-between px-4 py-2.5 text-sm font-medium mx-3 rounded-lg transition-all relative group",
+      "flex items-center justify-between transition-all relative group rounded-lg",
+      isCollapsed 
+        ? "px-3 py-2.5 mx-1.5"
+        : "px-4 py-2.5 text-sm font-medium mx-3",
       active 
         ? "text-primary bg-[#FFF7F0] font-semibold border-l-[3px] border-primary" 
         : "text-gray-600 hover:bg-[#F5F5F5] border-l-[3px] border-transparent"
     )}>
       <div className="flex items-center gap-3">
         {icon && (
-          <span className={cn("transition-colors", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
+          <span className={cn("transition-colors flex-shrink-0", active ? "text-primary" : "text-gray-400 group-hover:text-gray-600")}>
             {icon}
           </span>
         )}
-        <span>{label}</span>
+        {!isCollapsed && <span className="whitespace-nowrap">{label}</span>}
       </div>
-      {hasSubItems && (
+      {!isCollapsed && hasSubItems && (
         <div onClick={(e) => { e.preventDefault(); onClick?.(); }} className="cursor-pointer p-1 hover:bg-black/5 rounded">
           {isOpen ? (
             <ChevronDown className="h-4 w-4 text-gray-400" />
@@ -95,109 +99,152 @@ function SubNavItem({ href, label, active }: { href: string, label: string, acti
 
 export function Sidebar() {
   const [location] = useLocation();
+  const [isExpanded, setIsExpanded] = useState(false);
   const [targetsOpen, setTargetsOpen] = useState(false);
   const [campaignsOpen, setCampaignsOpen] = useState(false);
   const [creativeOpen, setCreativeOpen] = useState(false);
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-100 fixed top-16 bottom-0 left-0 z-40 overflow-y-auto py-4">
-      <nav className="space-y-0.5">
-        <NavItem 
-          href="/" 
-          label="Home" 
-          icon={<Home className="w-4 h-4" />}
-          active={location === "/"} 
+    <>
+      {/* Toggle Button for collapsed state */}
+      {!isExpanded && (
+        <button 
+          onClick={() => setIsExpanded(true)}
+          className="fixed top-20 left-3 z-35 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          aria-label="Expand menu"
+        >
+          <Menu className="w-5 h-5 text-gray-600" />
+        </button>
+      )}
+
+      {/* Overlay when expanded */}
+      {isExpanded && (
+        <div 
+          className="fixed inset-0 bg-black/20 z-30 top-16"
+          onClick={() => setIsExpanded(false)}
         />
-        
-        <div className="mt-4">
-          <NavItem 
-            href="/targets" 
-            label="Targets" 
-            icon={<Target className="w-4 h-4" />}
-            active={location.startsWith("/targets")}
-            hasSubItems
-            isOpen={targetsOpen}
-            onClick={() => setTargetsOpen(!targetsOpen)}
-          />
-          {targetsOpen && (
-            <div className="mt-1 space-y-0.5 pb-1">
-              <SubNavItem 
-                href="/targets" 
-                label="All Targets" 
-                active={location === "/targets"}
-              />
-              <SubNavItem 
-                href="/targets/1" 
-                label="Target Dashboard" 
-                active={location.startsWith("/targets/") && location !== "/targets"}
-              />
-            </div>
-          )}
-        </div>
+      )}
 
-        <div className="mt-4">
-          <NavItem 
-            href="/campaigns" 
-            label="Campaigns" 
-            icon={<Flag className="w-4 h-4" />}
-            active={location.startsWith("/campaigns")}
-            hasSubItems
-            isOpen={campaignsOpen}
-            onClick={() => setCampaignsOpen(!campaignsOpen)}
-          />
-          {campaignsOpen && (
-            <div className="mt-1 space-y-0.5 pb-1">
-              <SubNavItem 
-                href="/campaigns" 
-                label="Campaigns Home" 
-                active={location === "/campaigns"}
-              />
-              <SubNavItem 
-                href="/campaigns/always-on" 
-                label="Always On Campaigns" 
-                active={location === "/campaigns/always-on"}
-              />
-              <SubNavItem 
-                href="/campaigns/tactical" 
-                label="Tactical Campaigns" 
-                active={location === "/campaigns/tactical"}
-              />
-            </div>
-          )}
-        </div>
+      {/* Sidebar */}
+      <aside className={cn(
+        "bg-white border-r border-gray-100 fixed top-16 bottom-0 left-0 z-40 overflow-y-auto py-4 transition-all duration-300 ease-out",
+        isExpanded 
+          ? "w-64" 
+          : "w-20"
+      )}>
+        {/* Close button when expanded */}
+        {isExpanded && (
+          <button 
+            onClick={() => setIsExpanded(false)}
+            className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-lg transition-colors"
+            aria-label="Collapse menu"
+          >
+            <X className="w-5 h-5 text-gray-600" />
+          </button>
+        )}
 
-        <div className="mt-4">
+        <nav className={cn("space-y-0.5", isExpanded ? "mt-0" : "mt-2")}>
           <NavItem 
-            href="/creative" 
-            label="Creative" 
-            icon={<Palette className="w-4 h-4" />}
-            active={location.startsWith("/creative")}
-            hasSubItems
-            isOpen={creativeOpen}
-            onClick={() => setCreativeOpen(!creativeOpen)}
+            href="/" 
+            label="Home" 
+            icon={<Home className="w-4 h-4" />}
+            active={location === "/"} 
+            isCollapsed={!isExpanded}
           />
-          {creativeOpen && (
-            <div className="mt-1 space-y-0.5 pb-1">
-              <SubNavItem 
-                href="/creative/library" 
-                label="Content Library" 
-                active={location === "/creative/library"}
-              />
-              <SubNavItem 
-                href="/creative/messaging" 
-                label="Messaging Strategy" 
-                active={location === "/creative/messaging"}
-              />
-              <SubNavItem 
-                href="/creative/add" 
-                label="Add Content" 
-                active={location === "/creative/add"}
-              />
-            </div>
-          )}
-        </div>
-      </nav>
-    </aside>
+          
+          <div className={isExpanded ? "mt-4" : "mt-6"}>
+            <NavItem 
+              href="/targets" 
+              label="Targets" 
+              icon={<Target className="w-4 h-4" />}
+              active={location.startsWith("/targets")}
+              hasSubItems
+              isOpen={targetsOpen}
+              onClick={() => setTargetsOpen(!targetsOpen)}
+              isCollapsed={!isExpanded}
+            />
+            {isExpanded && targetsOpen && (
+              <div className="mt-1 space-y-0.5 pb-1">
+                <SubNavItem 
+                  href="/targets" 
+                  label="All Targets" 
+                  active={location === "/targets"}
+                />
+                <SubNavItem 
+                  href="/targets/1" 
+                  label="Target Dashboard" 
+                  active={location.startsWith("/targets/") && location !== "/targets"}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className={isExpanded ? "mt-4" : "mt-6"}>
+            <NavItem 
+              href="/campaigns" 
+              label="Campaigns" 
+              icon={<Flag className="w-4 h-4" />}
+              active={location.startsWith("/campaigns")}
+              hasSubItems
+              isOpen={campaignsOpen}
+              onClick={() => setCampaignsOpen(!campaignsOpen)}
+              isCollapsed={!isExpanded}
+            />
+            {isExpanded && campaignsOpen && (
+              <div className="mt-1 space-y-0.5 pb-1">
+                <SubNavItem 
+                  href="/campaigns" 
+                  label="Campaigns Home" 
+                  active={location === "/campaigns"}
+                />
+                <SubNavItem 
+                  href="/campaigns/always-on" 
+                  label="Always On Campaigns" 
+                  active={location === "/campaigns/always-on"}
+                />
+                <SubNavItem 
+                  href="/campaigns/tactical" 
+                  label="Tactical Campaigns" 
+                  active={location === "/campaigns/tactical"}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className={isExpanded ? "mt-4" : "mt-6"}>
+            <NavItem 
+              href="/creative" 
+              label="Creative" 
+              icon={<Palette className="w-4 h-4" />}
+              active={location.startsWith("/creative")}
+              hasSubItems
+              isOpen={creativeOpen}
+              onClick={() => setCreativeOpen(!creativeOpen)}
+              isCollapsed={!isExpanded}
+            />
+            {isExpanded && creativeOpen && (
+              <div className="mt-1 space-y-0.5 pb-1">
+                <SubNavItem 
+                  href="/creative/library" 
+                  label="Content Library" 
+                  active={location === "/creative/library"}
+                />
+                <SubNavItem 
+                  href="/creative/messaging" 
+                  label="Messaging Strategy" 
+                  active={location === "/creative/messaging"}
+                />
+                <SubNavItem 
+                  href="/creative/add" 
+                  label="Add Content" 
+                  active={location === "/creative/add"}
+                />
+              </div>
+            )}
+          </div>
+        </nav>
+      </aside>
+    </>
   );
 }
 
@@ -206,7 +253,7 @@ export function Layout({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-white">
       <TopNav />
       <Sidebar />
-      <main className="pl-64 pt-16 min-h-screen">
+      <main className="pl-20 pt-16 min-h-screen">
         <div className="p-8 max-w-[1600px] mx-auto">
           {children}
         </div>
