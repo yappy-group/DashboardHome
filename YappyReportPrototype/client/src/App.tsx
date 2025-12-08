@@ -1,4 +1,4 @@
-import { Switch, Route, useLocation, useRoute } from "wouter";
+import { Switch, Route, useLocation, useRoute, Router as WouterRouter } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -11,6 +11,9 @@ import CampaignDashboard from "@/pages/CampaignDashboard";
 import TargetDashboard from "@/pages/TargetDashboard";
 import { Layout } from "@/components/layout/Layout";
 import { useEffect } from "react";
+
+// Get base path from Vite config
+const basePath = import.meta.env.BASE_URL;
 
 function TargetDashboardRoute() {
   const [, params] = useRoute("/targets/:id");
@@ -48,7 +51,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        <WouterRouter base={basePath}>
+          <Router />
+        </WouterRouter>
       </TooltipProvider>
     </QueryClientProvider>
   );
