@@ -6,6 +6,10 @@ import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { metaImagesPlugin } from "./vite-plugin-meta-images";
 
 export default defineConfig({
+  // Set base path for GitHub Pages deployment
+  // If deploying to https://<USERNAME>.github.io/<REPO>/, set base to '/<REPO>/'
+  // If deploying to https://<USERNAME>.github.io/, set base to '/'
+  base: process.env.GITHUB_PAGES === 'true' ? '/Yappy-Client-Portal/' : '/',
   plugins: [
     react(),
     runtimeErrorOverlay(),
