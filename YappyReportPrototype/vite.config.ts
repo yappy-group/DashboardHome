@@ -9,7 +9,7 @@ export default defineConfig({
   // Set base path for GitHub Pages deployment
   // If deploying to https://<USERNAME>.github.io/<REPO>/, set base to '/<REPO>/'
   // If deploying to https://<USERNAME>.github.io/, set base to '/'
-  base: process.env.GITHUB_PAGES === 'true' ? '/Dashboard-Demo/' : '/',
+  base: process.env.GITHUB_PAGES === 'true' ? '/DashboardHome/' : '/',
   plugins: [
     react(),
     runtimeErrorOverlay(),
